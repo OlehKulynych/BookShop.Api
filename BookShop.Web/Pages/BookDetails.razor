@@ -1,0 +1,27 @@
+﻿@page "/BookDetails/{Id:int}"
+
+@inherits BookDetailsBase
+
+
+
+@if (BookDTO == null && ErrorMessage == null)
+{
+    <h3>Empty...</h3>
+}
+else if (ErrorMessage != null)
+{
+    <h3 class="text-danger">@ErrorMessage</h3>
+}
+else
+{
+
+    <h3>Book: @BookDTO.Name</h3>
+    <p>@BookDTO.Author</p>
+    <p>@BookDTO.Description</p>
+    <p>@BookDTO.Price.ToString("C")</p>
+    <button class="btn-light" @onclick=" ()=> AddToCart(new CartItemAddDTO{
+        CartId = 1,
+        BookId = BookDTO.Id,
+        Quantity = 1
+        })">Buy</button>
+}

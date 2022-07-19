@@ -1,0 +1,20 @@
+﻿@page "/"
+@inherits BooksBase
+<h3>Books</h3>
+
+@if(Books == null)
+{
+    <h3>Empty...</h3>
+}
+else
+{
+    <h3>Books</h3>
+    var count = Books.Count();
+    if(count > 0)
+    {
+        var books = new List<BookDTO>();
+        books = Books.ToList();
+        
+        <DisplayBook Books="@books"></DisplayBook>
+    }
+}
