@@ -1,0 +1,17 @@
+﻿@page "/Cart"
+
+@inherits CartBase
+
+<h3>Shopping Cart</h3>
+
+<h1>@ErrorMessage</h1>
+@if(cartItems != null)
+{
+    @foreach(var item in cartItems)
+{
+    <h4>@item.BookName</h4>
+    <p>@item.Description</p>
+    <p>@item.Price.ToString("C")</p>
+}
+}
+

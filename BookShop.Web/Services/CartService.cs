@@ -42,7 +42,7 @@ namespace BookShop.Web.Services
         {
             try
             {
-                var responce = await _httpClient.GetAsync($"api/{userId}/GetCartItems");
+                var responce = await _httpClient.GetAsync($"api/Cart/{userId}/GetCartItems"); 
 
                 if(responce.IsSuccessStatusCode)
                 {

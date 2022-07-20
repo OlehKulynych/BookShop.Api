@@ -19,6 +19,8 @@ namespace BookShop.Web.Pages
         public BookDTO BookDTO { get; set; }
         public string ErrorMessage { get; set; }
 
+        public NavigationManager navigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             try
@@ -36,6 +38,7 @@ namespace BookShop.Web.Pages
             try
             {
                 var cartItemDTO = await cartService.AddItemToCart(cartItemAddDTO);
+                navigationManager.NavigateTo("/Cart");
             }
             catch (Exception)
             {

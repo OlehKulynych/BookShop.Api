@@ -21,7 +21,7 @@ namespace BookShop.Api.Controllers
         {
             try
             {
-                var cartItemsDTO = _cartService.GetCartItemsAsync(userId);
+                var cartItemsDTO = await _cartService.GetCartItemsAsync(userId);
 
                 return Ok(cartItemsDTO);
             }

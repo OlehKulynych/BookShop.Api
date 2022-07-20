@@ -16,7 +16,7 @@ namespace BookShop.Web.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync($"api/Book/5");
+                var response = await _httpClient.GetAsync($"api/Book/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {

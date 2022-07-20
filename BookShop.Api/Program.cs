@@ -16,14 +16,14 @@ builder.Services.AddDbContext<BookShopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddTransient<IBookRepository, BookRepository>();
-builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
 
-builder.Services.AddTransient<IBookCategoryRepository, BookCategoryRepository>();
-builder.Services.AddTransient<IBookCategoryService, BookCategoryService>();
+builder.Services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
+builder.Services.AddScoped<IBookCategoryService, BookCategoryService>();
 
-builder.Services.AddTransient<ICartRepository, CartRepository>();
-builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

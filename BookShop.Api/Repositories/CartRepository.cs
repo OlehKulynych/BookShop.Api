@@ -23,8 +23,8 @@ namespace BookShop.Api.Repositories
 
         public async Task<CartItem> AddItemToCartAsync(CartItemAddDTO cartItemAddDto)
         {
-            if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
-            {
+            //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
+            //{
                 //var item = await _dbContext.Books.Where(c => c.Id == cartItemAddDto.BookId).Select(с => new CartItem { CartId = cartItemAddDto.CartId, BookId = cartItemAddDto.BookId, Quantity = cartItemAddDto.Quantity }).SingleOrDefaultAsync();
 
                 //var book = await _dbContext.Books.Where(c => c.Id == cartItemAddDto.BookId).SingleOrDefaultAsync();
@@ -42,7 +42,7 @@ namespace BookShop.Api.Repositories
                     return await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == item.Id).SingleOrDefaultAsync();
 
                 }
-            }
+            //}
           
             return null;
         }
@@ -54,13 +54,14 @@ namespace BookShop.Api.Repositories
 
         public async Task<CartItem> GetItemByIdAsync(int id)
         {
-            var cart = await _dbContext.CartItems.Include(c => c.Cart).Where(c => c.Id == id).SingleOrDefaultAsync();
+            var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == id).SingleOrDefaultAsync();
             return cart;
         }
 
         public async Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(int userId)
         {
-            var cart = await _dbContext.CartItems.Include(c => c.Cart).Where(c => c.Cart.UserId == userId).ToListAsync();
+            var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Cart.UserId == userId).ToListAsync();
+
             return cart;
         }
 
