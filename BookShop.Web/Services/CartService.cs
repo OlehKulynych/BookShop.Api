@@ -1,4 +1,4 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using System.Net.Http.Json;
 
@@ -12,19 +12,19 @@ namespace BookShop.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<CartItemDTO> AddItemToCart(CartItemAddDTO cartItemAddDTO)
+        public async Task<CartItemDto> AddItemToCart(CartItemAddDto cartItemAddDto)
         {
             try
             {
-                var responce = await _httpClient.PostAsJsonAsync<CartItemAddDTO>("api/Cart",cartItemAddDTO);
+                var responce = await _httpClient.PostAsJsonAsync<CartItemAddDto>("api/Cart",cartItemAddDto);
 
                 if(responce.IsSuccessStatusCode)
                 {
                     if(responce.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(CartItemDTO);
+                        return default(CartItemDto);
                     }
-                    return await responce.Content.ReadFromJsonAsync<CartItemDTO>();
+                    return await responce.Content.ReadFromJsonAsync<CartItemDto>();
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace BookShop.Web.Services
             }
         }
 
-        public async Task<IEnumerable<CartItemDTO>> GetCartItems(int userId)
+        public async Task<IEnumerable<CartItemDto>> GetCartItems(int userId)
         {
             try
             {
@@ -48,9 +48,9 @@ namespace BookShop.Web.Services
                 {
                     if(responce.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return Enumerable.Empty<CartItemDTO>();
+                        return Enumerable.Empty<CartItemDto>();
                     }
-                    return await responce.Content.ReadFromJsonAsync<IEnumerable<CartItemDTO>>();
+                    return await responce.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
                 }
                 else
                 {

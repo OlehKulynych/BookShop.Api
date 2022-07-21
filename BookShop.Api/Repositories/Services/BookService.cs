@@ -1,5 +1,5 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 using BookShop.Api.Models;
 
 namespace BookShop.Api.Repositories.Services
@@ -13,28 +13,22 @@ namespace BookShop.Api.Repositories.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task AddBookAsync(BookDTO bookDTO, IFormFile uploadedImage)
+        public async Task AddBookAsync(BookDto bookDto)
         {
-            if(uploadedImage != null)
-            {
-                string path = "/img/" + uploadedImage.FileName;
 
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedImage.CopyToAsync(fileStream);
-                }
-                await _bookRepository.AddBookAsync(new Book
-                {
-                    Name = bookDTO.Name,
-                    Author = bookDTO.Author,
-                    Description = bookDTO.Description,
-                    ImageUrl = path,
-                    Price = bookDTO.Price,
-                    Quantity = bookDTO.Quantity,
-                    BookCategoryId = bookDTO.BookCategoryId
-                });
-            }
-           
+
+            await _bookRepository.AddBookAsync(new Book
+            {
+                Name = bookDto.Name,
+                Author = bookDto.Author,
+                Description = bookDto.Description,
+                ImageUrl = bookDto.ImageUrl,
+                Price = bookDto.Price,
+                Quantity = bookDto.Quantity,
+                BookCategoryId = bookDto.BookCategoryId
+            });
+
+
         }
 
         public async Task DeleteBookAsync(int id)
@@ -42,27 +36,27 @@ namespace BookShop.Api.Repositories.Services
             await _bookRepository.DeleteBookAsync(id);
         }
 
-        public async Task UpdateBookAsync(BookDTO bookDTO)
+        public async Task UpdateBookAsync(BookDto bookDto)
         {
-            var book = await _bookRepository.GetBookByIdAsync(bookDTO.Id);
-            book.Id = bookDTO.Id;
-            book.Name = bookDTO.Name;
-            book.Author = bookDTO.Author;
-            book.Description = bookDTO.Description;
-            book.ImageUrl = bookDTO.ImageUrl;
-            book.Price = bookDTO.Price;
-            book.Quantity = bookDTO.Quantity;
-            book.BookCategoryId = bookDTO.BookCategoryId;
+            var book = await _bookRepository.GetBookByIdAsync(bookDto.Id);
+            book.Id = bookDto.Id;
+            book.Name = bookDto.Name;
+            book.Author = bookDto.Author;
+            book.Description = bookDto.Description;
+            book.ImageUrl = bookDto.ImageUrl;
+            book.Price = bookDto.Price;
+            book.Quantity = bookDto.Quantity;
+            book.BookCategoryId = bookDto.BookCategoryId;
 
             await _bookRepository.UpdateBookAsync(book);
 
         }
 
-        public async Task<BookDTO> GetBookByIdAsync(int id)
+        public async Task<BookDto> GetBookByIdAsync(int id)
         {
             var book = await _bookRepository.GetBookByIdAsync(id);
 
-            return new BookDTO
+            return new BookDto
             {
                 Id = book.Id,
                 Name = book.Name,
@@ -75,13 +69,13 @@ namespace BookShop.Api.Repositories.Services
             };
         }
 
-        public async Task<IEnumerable<BookDTO>> GetBooksAsync()
+        public async Task<IEnumerable<BookDto>> GetBooksAsync()
         {
             var books = await _bookRepository.GetBooksAsync();
-            List<BookDTO> bookDTOs = new List<BookDTO>();
+            List<BookDto> bookDtos = new List<BookDto>();
             foreach (Book book in books)
             {
-                var bookDTO = new BookDTO
+                var bookDTO = new BookDto
                 {
                     Id = book.Id,
                     Name = book.Name,
@@ -92,11 +86,11 @@ namespace BookShop.Api.Repositories.Services
                     Quantity = book.Quantity,
                     BookCategoryName = book.BookCategory.Name
                 };
-                bookDTOs.Add(bookDTO);
+                bookDtos.Add(bookDTO);
 
             }
 
-            return bookDTOs;
+            return bookDtos;
         }
     }
 }

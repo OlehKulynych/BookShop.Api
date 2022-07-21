@@ -4,7 +4,7 @@
 
 
 
-@if (BookDTO == null && ErrorMessage == null)
+@if (BookDto == null && ErrorMessage == null)
 {
     <h3>Empty...</h3>
 }
@@ -15,13 +15,13 @@ else if (ErrorMessage != null)
 else
 {
 
-    <h3>Book: @BookDTO.Name</h3>
-    <p>@BookDTO.Author</p>
-    <p>@BookDTO.Description</p>
-    <p>@BookDTO.Price.ToString("C")</p>
-    <button class="btn-light" @onclick=" ()=> AddToCart(new CartItemAddDTO{
+    <h3>Book: @BookDto.Name</h3>
+    <p>@BookDto.Author</p>
+    <p>@BookDto.Description</p>
+    <p>@BookDto.Price.ToString("C")</p>
+    <button class="btn-light" @onclick=" ()=> AddToCart(new CartItemAddDto{
         CartId = 1,
-        BookId = BookDTO.Id,
+        BookId = BookDto.Id,
         Quantity = 1
         })">Buy</button>
 }

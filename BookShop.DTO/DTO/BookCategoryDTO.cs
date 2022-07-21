@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace BookShop.DTO.DTO
+namespace BookShop.Shared.DTO
 {
-    public class BookCategoryDTO
+    public class BookCategoryDto
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }

@@ -1,6 +1,6 @@
 ﻿using BookShop.Api.Data;
 using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Api.Controllers
@@ -16,7 +16,7 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookCategoryDTO>>> Index()
+        public async Task<ActionResult<IEnumerable<BookCategoryDto>>> Index()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace BookShop.Api.Controllers
 
         [HttpGet]
         [Route("CategoryById")]
-        public async Task<ActionResult<BookCategoryDTO>> CategoryId(int id)
+        public async Task<ActionResult<BookCategoryDto>> CategoryId(int id)
         {
             try
             {
@@ -61,12 +61,12 @@ namespace BookShop.Api.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult> NewCategory(BookCategoryDTO bookCategoryDTO)
+        public async Task<ActionResult> NewCategory(BookCategoryDto bookCategoryDto)
         {
             try
             {
-                await _bookCategoryService.AddBookCategoryAsync(bookCategoryDTO);
-                return Ok(bookCategoryDTO);
+                await _bookCategoryService.AddBookCategoryAsync(bookCategoryDto);
+                return Ok(bookCategoryDto);
             }
             catch (Exception)
             {
@@ -91,11 +91,11 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBookCategory(BookCategoryDTO bookCategoryDTO)
+        public async Task<ActionResult> UpdateBookCategory(BookCategoryDto bookCategoryDto)
         {
             try
             {
-                await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDTO);
+                await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDto);
                 return Ok();
             }
             catch (Exception)
