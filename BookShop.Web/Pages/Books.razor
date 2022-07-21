@@ -12,7 +12,7 @@ else
     var count = Books.Count();
     if(count > 0)
     {
-        var books = new List<BookDTO>();
+        var books = new List<BookDto>();
         books = Books.ToList();
         
         <DisplayBook Books="@books"></DisplayBook>

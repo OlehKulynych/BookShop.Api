@@ -1,10 +1,10 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 
 namespace BookShop.Web.Services.Intefraces
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookDTO>> GetBooksAsync();
-        Task<BookDTO> GetBookById(int id);
+        Task<IEnumerable<BookDto>> GetBooksAsync();
+        Task<BookDto> GetBookById(int id);
     }
 }

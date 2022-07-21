@@ -1,5 +1,5 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +17,7 @@ namespace BookShop.Api.Controllers
 
         [HttpGet]
         [Route("{userId}/GetCartItems")]
-        public async Task<ActionResult<IEnumerable<CartItemDTO>>> GetCartItems (int userId)
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems (int userId)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpGet("{Id:int}")]
-        public async Task<ActionResult<CartItemDTO>> GetCartItem(int Id)
+        public async Task<ActionResult<CartItemDto>> GetCartItem(int Id)
         {
             try
             {
@@ -47,13 +47,13 @@ namespace BookShop.Api.Controllers
         
         }
         [HttpPost]
-        public async Task<ActionResult<CartItemDTO>> AddItemToCart([FromBody] CartItemAddDTO cartItemAddDTO)
+        public async Task<ActionResult<CartItemDto>> AddItemToCart([FromBody] CartItemAddDto cartItemAddDto)
         {
             try
             {
-                var cartItemDTO = await _cartService.AddItemToCartAsync(cartItemAddDTO);
+                var cartItemDto = await _cartService.AddItemToCartAsync(cartItemAddDto);
 
-                return CreatedAtAction(nameof(GetCartItem), new { id = cartItemDTO.Id }, cartItemDTO);
+                return CreatedAtAction(nameof(GetCartItem), new { id = cartItemDto.Id }, cartItemDto);
             }
             catch(Exception)
             {

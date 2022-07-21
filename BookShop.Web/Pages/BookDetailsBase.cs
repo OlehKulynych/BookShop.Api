@@ -1,4 +1,4 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using Microsoft.AspNetCore.Components;
 
@@ -16,7 +16,7 @@ namespace BookShop.Web.Pages
         [Inject]
         public ICartService cartService { get; set; }
 
-        public BookDTO BookDTO { get; set; }
+        public BookDto BookDto { get; set; }
         public string ErrorMessage { get; set; }
 
         public NavigationManager navigationManager { get; set; }
@@ -25,7 +25,7 @@ namespace BookShop.Web.Pages
         {
             try
             {
-                BookDTO = await bookService.GetBookById(Id);
+                BookDto = await bookService.GetBookById(Id);
             }
             catch (Exception ex)
             {
@@ -33,11 +33,11 @@ namespace BookShop.Web.Pages
             }
         }
 
-        protected async Task AddToCart(CartItemAddDTO cartItemAddDTO)
+        protected async Task AddToCart(CartItemAddDto cartItemAddDto)
         {
             try
             {
-                var cartItemDTO = await cartService.AddItemToCart(cartItemAddDTO);
+                var cartItemDTO = await cartService.AddItemToCart(cartItemAddDto);
                 navigationManager.NavigateTo("/Cart");
             }
             catch (Exception)

@@ -1,4 +1,4 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using Microsoft.AspNetCore.Components;
 
@@ -9,7 +9,7 @@ namespace BookShop.Web.Pages
         [Inject]
         public IBookService bookService { get; set; }
 
-        public IEnumerable<BookDTO> Books { get; set; }
+        public IEnumerable<BookDto> Books { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

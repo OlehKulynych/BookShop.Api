@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Api", "BookShop.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Web", "BookShop.Web\BookShop.Web.csproj", "{65A95523-7657-400A-829B-60738DE46EED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.DTO", "BookShop.DTO\BookShop.DTO.csproj", "{E1E43653-1158-454F-BAC9-EFC9C1FCDA89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookShop.Shared", "BookShop.DTO\BookShop.Shared.csproj", "{E1E43653-1158-454F-BAC9-EFC9C1FCDA89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

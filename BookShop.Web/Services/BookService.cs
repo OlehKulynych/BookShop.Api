@@ -1,4 +1,4 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using System.Net.Http.Json;
 
@@ -12,7 +12,7 @@ namespace BookShop.Web.Services
             _httpClient = httpClient;
         }
 
-        public async Task<BookDTO> GetBookById(int id)
+        public async Task<BookDto> GetBookById(int id)
         {
             try
             {
@@ -22,9 +22,9 @@ namespace BookShop.Web.Services
                 {
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(BookDTO);
+                        return default(BookDto);
                     }
-                    return await response.Content.ReadFromJsonAsync<BookDTO>();
+                    return await response.Content.ReadFromJsonAsync<BookDto>();
                 }
                 else
                 {
@@ -39,7 +39,7 @@ namespace BookShop.Web.Services
             }
         }
 
-        public async Task<IEnumerable<BookDTO>> GetBooksAsync()
+        public async Task<IEnumerable<BookDto>> GetBooksAsync()
         {
             try
             {
@@ -49,9 +49,9 @@ namespace BookShop.Web.Services
                 {
                     if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return Enumerable.Empty<BookDTO>();
+                        return Enumerable.Empty<BookDto>();
                     }
-                    return await response.Content.ReadFromJsonAsync<IEnumerable<BookDTO>>();
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<BookDto>>();
                 }
                 else
                 {
