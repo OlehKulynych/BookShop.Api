@@ -25,9 +25,6 @@ namespace BookShop.Api.Repositories
         {
             //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
             //{
-                //var item = await _dbContext.Books.Where(c => c.Id == cartItemAddDto.BookId).Select(с => new CartItem { CartId = cartItemAddDto.CartId, BookId = cartItemAddDto.BookId, Quantity = cartItemAddDto.Quantity }).SingleOrDefaultAsync();
-
-                //var book = await _dbContext.Books.Where(c => c.Id == cartItemAddDto.BookId).SingleOrDefaultAsync();
 
                 var item = new CartItem {
                     CartId = cartItemAddDto.CartId,

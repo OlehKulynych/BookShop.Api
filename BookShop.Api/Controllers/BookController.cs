@@ -18,88 +18,63 @@ namespace BookShop.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookDTO>>> Index()
         {
-            try
+
+            var books = await _bookService.GetBooksAsync();
+            if (books == null)
             {
-                var books = await _bookService.GetBooksAsync();
-                if (books == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(books);
-                }
+                return NotFound();
             }
-            catch (Exception)
+            else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Ok(books);
             }
+
 
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<BookCategoryDTO>> BookById(int id)
         {
-            try
+
+            var book = await _bookService.GetBookByIdAsync(id);
+            if (book == null)
             {
-                var book = await _bookService.GetBookByIdAsync(id);
-                if (book == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(book);
-                }
+                return NotFound();
             }
-            catch (Exception)
+            else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Ok(book);
             }
+
 
         }
 
         [HttpPost]
         public async Task<ActionResult> AddNewBook(BookDTO bookDTO, IFormFile uploadedImage)
         {
-            try
-            {
-                await _bookService.AddBookAsync(bookDTO, uploadedImage);
-                return Ok(bookDTO);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+
+            await _bookService.AddBookAsync(bookDTO, uploadedImage);
+            return Ok(bookDTO);
+
 
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteBook (int id)
+        public async Task<ActionResult> DeleteBook(int id)
         {
-            try
-            {
-                await _bookService.DeleteBookAsync(id);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+
+            await _bookService.DeleteBookAsync(id);
+            return Ok();
+
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBook (BookDTO bookDTO)
+        public async Task<ActionResult> UpdateBook(BookDTO bookDTO)
         {
-            try
-            {
-                await _bookService.UpdateBookAsync(bookDTO);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+
+            await _bookService.UpdateBookAsync(bookDTO);
+            return Ok();
+
         }
     }
 }
