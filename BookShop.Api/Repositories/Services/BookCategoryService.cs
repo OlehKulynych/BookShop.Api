@@ -1,4 +1,5 @@
-﻿using BookShop.Api.Models;
+﻿using AutoMapper;
+using BookShop.Api.Models;
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Shared.DTO;
 
@@ -8,48 +9,38 @@ namespace BookShop.Api.Repositories.Services
     {
 
         private readonly IBookCategoryRepository _bookCategoryRepository;
-        public BookCategoryService(IBookCategoryRepository bookCategoryRepository)
+        private readonly IMapper _mapper; 
+        public BookCategoryService(IBookCategoryRepository bookCategoryRepository, IMapper mapper)
         {
             _bookCategoryRepository = bookCategoryRepository;
+            _mapper = mapper;
         }
 
-        public async Task AddBookCategoryAsync(BookCategoryDto bookCategoryDto)
+        public async Task AddBookCategoryAsync(BookCategoryAddDto bookCategoryAddDto)
         {
-            await _bookCategoryRepository.AddBookCategotyAsync(new BookCategory { Name = bookCategoryDto.Name });
+            await _bookCategoryRepository.AddBookCategotyAsync(_mapper.Map<BookCategory>(bookCategoryAddDto));
 
         }
 
         public async Task<BookCategoryDto> GetBookCategoryByIdAsync(int id)
         {
             var bookCategory = await _bookCategoryRepository.GetCategoryByIdAsync(id);
-            return new BookCategoryDto { Id = bookCategory.Id, Name = bookCategory.Name };
+            var category = _mapper.Map<BookCategoryDto>(bookCategory);
+            return category;
 
         }
 
         public async Task<IEnumerable<BookCategoryDto>> GetBookCategoriesAsync()
         {
             var bookCategories = await _bookCategoryRepository.GetCategoriesAsync();
+            var bookCategoryDTOs = _mapper.Map<List<BookCategoryDto>>(bookCategories);
 
-            List<BookCategoryDto> bookCategoryDtos = new List<BookCategoryDto>();
-
-            foreach (BookCategory bookCategory in bookCategories)
-            {
-                var category = new BookCategoryDto
-                {
-                    Id = bookCategory.Id,
-                    Name = bookCategory.Name
-                };
-                bookCategoryDtos.Add(category);
-            }
-            return bookCategoryDtos;
+            return bookCategoryDTOs;
         }
 
         public async Task UpdateBookCategoryAsync(BookCategoryDto bookCategoryDto)
         {
-            var bookCategory = await _bookCategoryRepository.GetCategoryByIdAsync(bookCategoryDto.Id);
-            bookCategory.Id = bookCategoryDto.Id;
-            bookCategory.Name = bookCategoryDto.Name;
-
+            var bookCategory = _mapper.Map<BookCategory>(bookCategoryDto);
             await _bookCategoryRepository.UpdateBookCategoryAsync(bookCategory);
         }
 
