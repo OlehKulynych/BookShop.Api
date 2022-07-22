@@ -1,5 +1,5 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 
 namespace BookShop.Api.Repositories.Services
 {
@@ -14,14 +14,14 @@ namespace BookShop.Api.Repositories.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task<IEnumerable<CartItemDTO>> GetCartItemsAsync(int userId)
+        public async Task<IEnumerable<CartItemDto>> GetCartItemsAsync(int userId)
         {
-            List<CartItemDTO> cartItemDTOs = new List<CartItemDTO>();
+            List<CartItemDto> cartItemDTOs = new List<CartItemDto>();
             var cartItems = await _cartRepository.GetItemsByUserIdAsync(userId);
             foreach (var cartItem in cartItems)
             {
 
-                cartItemDTOs.Add(new CartItemDTO { 
+                cartItemDTOs.Add(new CartItemDto { 
                     Id = cartItem.Id, 
                     BookId = cartItem.BookId, 
                     BookName = cartItem.Book.Name, 
@@ -38,12 +38,12 @@ namespace BookShop.Api.Repositories.Services
             return cartItemDTOs;
         }
 
-        public async Task<CartItemDTO> GetCartItemAsync(int Id)
+        public async Task<CartItemDto> GetCartItemAsync(int Id)
         {
      
             var cartItem = await _cartRepository.GetItemByIdAsync(Id);
 
-            return new CartItemDTO {
+            return new CartItemDto {
                 Id = cartItem.Id,
                 BookId = cartItem.BookId,
                 BookName = cartItem.Book.Name,
@@ -57,10 +57,10 @@ namespace BookShop.Api.Repositories.Services
 
         }
 
-        public async Task<CartItemDTO> AddItemToCartAsync(CartItemAddDTO cartItemAddDTO)
+        public async Task<CartItemDto> AddItemToCartAsync(CartItemAddDto cartItemAddDto)
         {
-            var cartItem =  await _cartRepository.AddItemToCartAsync(cartItemAddDTO);
-            return new CartItemDTO
+            var cartItem =  await _cartRepository.AddItemToCartAsync(cartItemAddDto);
+            return new CartItemDto
             {
                 Id = cartItem.Id,
                 BookId = cartItem.BookId,

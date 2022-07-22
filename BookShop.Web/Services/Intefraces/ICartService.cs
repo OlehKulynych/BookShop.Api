@@ -1,10 +1,10 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 
 namespace BookShop.Web.Services.Intefraces
 {
     public interface ICartService
     {
-        Task<IEnumerable<CartItemDTO>> GetCartItems(int userId);
-        Task<CartItemDTO> AddItemToCart(CartItemAddDTO cartItemAddDTO);
+        Task<IEnumerable<CartItemDto>> GetCartItems(int userId);
+        Task<CartItemDto> AddItemToCart(CartItemAddDto cartItemAddDto);
     }
 }

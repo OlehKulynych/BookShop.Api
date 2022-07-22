@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BookShop.DTO\BookShop.DTO.csproj" />
+    <ProjectReference Include="..\BookShop.DTO\BookShop.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

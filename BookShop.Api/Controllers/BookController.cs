@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Api.Models;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 
 namespace BookShop.Api.Controllers
 {
@@ -16,7 +16,7 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDTO>>> Index()
+        public async Task<ActionResult<IEnumerable<BookDto>>> Index()
         {
 
             var books = await _bookService.GetBooksAsync();
@@ -33,7 +33,7 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<BookCategoryDTO>> BookById(int id)
+        public async Task<ActionResult<BookCategoryDto>> BookById(int id)
         {
 
             var book = await _bookService.GetBookByIdAsync(id);
@@ -50,12 +50,11 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddNewBook(BookDTO bookDTO, IFormFile uploadedImage)
+        public async Task<ActionResult> AddNewBook(BookDto bookDto)
         {
 
-            await _bookService.AddBookAsync(bookDTO, uploadedImage);
-            return Ok(bookDTO);
-
+            await _bookService.AddBookAsync(bookDto, uploadedImage);
+            return Ok(bookDto);
 
         }
 
@@ -69,11 +68,12 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBook(BookDTO bookDTO)
+
+        public async Task<ActionResult> UpdateBook (BookDto bookDto)
         {
 
-            await _bookService.UpdateBookAsync(bookDTO);
-            return Ok();
+                await _bookService.UpdateBookAsync(bookDto);
+                return Ok();
 
         }
     }

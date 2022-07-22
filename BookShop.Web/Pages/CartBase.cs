@@ -1,4 +1,4 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using Microsoft.AspNetCore.Components;
 
@@ -9,7 +9,7 @@ namespace BookShop.Web.Pages
         [Inject]
         public ICartService cartService { get; set; }
 
-        public IEnumerable<CartItemDTO> cartItems { get; set; }
+        public IEnumerable<CartItemDto> cartItems { get; set; }
 
         public string ErrorMessage { get; set; }
 

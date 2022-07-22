@@ -1,12 +1,11 @@
-﻿using BookShop.DTO.DTO;
-
+﻿using BookShop.Shared.DTO;
 namespace BookShop.Api.Repositories.Interfaces
 {
     public interface ICartService
     {
-        public Task<IEnumerable<CartItemDTO>> GetCartItemsAsync(int userId);
-        Task<CartItemDTO> GetCartItemAsync(int Id);
-        Task<CartItemDTO> AddItemToCartAsync(CartItemAddDTO cartItemAddDTO);
+        public Task<IEnumerable<CartItemDto>> GetCartItemsAsync(int userId);
+        Task<CartItemDto> GetCartItemAsync(int Id);
+        Task<CartItemDto> AddItemToCartAsync(CartItemAddDto cartItemAddDto);
 
     }
 }

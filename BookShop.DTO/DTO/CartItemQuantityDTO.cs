@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookShop.DTO.DTO
+namespace BookShop.Shared.DTO
 {
-    public class CartItemQuantityDTO
+    public class CartItemQuantityDto
     {
         public int CartItemId { get; set; }
         public int Quantity { get; set; }

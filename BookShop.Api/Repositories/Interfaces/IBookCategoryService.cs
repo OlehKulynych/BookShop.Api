@@ -1,15 +1,15 @@
-﻿using BookShop.DTO.DTO;
+﻿using BookShop.Shared.DTO;
 
 namespace BookShop.Api.Repositories.Interfaces
 {
     public interface IBookCategoryService
     {
-        public Task<IEnumerable<BookCategoryDTO>> GetBookCategoriesAsync();
+        public Task<IEnumerable<BookCategoryDto>> GetBookCategoriesAsync();
 
-        public Task AddBookCategoryAsync(BookCategoryDTO bookCategoryDTO);
-        public Task<BookCategoryDTO> GetBookCategoryByIdAsync(int id);
+        public Task AddBookCategoryAsync(BookCategoryDto bookCategoryDto);
+        public Task<BookCategoryDto> GetBookCategoryByIdAsync(int id);
 
-        public Task UpdateBookCategoryAsync(BookCategoryDTO bookCategoryDTO);
+        public Task UpdateBookCategoryAsync(BookCategoryDto bookCategoryDto);
         public Task DeleteBookCategoryAsync(int id);
     }
 }
