@@ -53,7 +53,7 @@ namespace BookShop.Api.Controllers
         public async Task<ActionResult> AddNewBook(BookDto bookDto)
         {
 
-            await _bookService.AddBookAsync(bookDto, uploadedImage);
+            await _bookService.AddBookAsync(bookDto);
             return Ok(bookDto);
 
         }

@@ -53,8 +53,8 @@ namespace BookShop.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> NewCategory(BookCategoryDto bookCategoryDto)
         {
-            await _bookCategoryService.AddBookCategoryAsync(bookCategoryDTO);
-            return Ok(bookCategoryDTO);
+            await _bookCategoryService.AddBookCategoryAsync(bookCategoryDto);
+            return Ok(bookCategoryDto);
 
         }
 
@@ -72,7 +72,7 @@ namespace BookShop.Api.Controllers
         public async Task<ActionResult> UpdateBookCategory(BookCategoryDto bookCategoryDto)
         {
 
-            await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDTO);
+            await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDto);
             return Ok();
         }
     }
