@@ -26,7 +26,6 @@ namespace BookShop.Api.Repositories
             //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
             //{
 
-
                 var item = new CartItem {
                     CartId = cartItemAddDto.CartId,
                     BookId = cartItemAddDto.BookId,
