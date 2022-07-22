@@ -6,7 +6,7 @@ namespace BookShop.Api.Repositories.Interfaces
     {
         public Task<IEnumerable<BookCategoryDto>> GetBookCategoriesAsync();
 
-        public Task AddBookCategoryAsync(BookCategoryDto bookCategoryDto);
+        public Task AddBookCategoryAsync(BookCategoryAddDto bookCategoryAddDto);
         public Task<BookCategoryDto> GetBookCategoryByIdAsync(int id);
 
         public Task UpdateBookCategoryAsync(BookCategoryDto bookCategoryDto);

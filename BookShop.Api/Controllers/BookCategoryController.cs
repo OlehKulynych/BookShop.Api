@@ -51,10 +51,10 @@ namespace BookShop.Api.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult> NewCategory(BookCategoryDto bookCategoryDto)
+        public async Task<ActionResult> NewCategory(BookCategoryAddDto bookCategoryAddDto)
         {
-            await _bookCategoryService.AddBookCategoryAsync(bookCategoryDto);
-            return Ok(bookCategoryDto);
+            await _bookCategoryService.AddBookCategoryAsync(bookCategoryAddDto);
+            return Ok(bookCategoryAddDto);
 
         }
 
