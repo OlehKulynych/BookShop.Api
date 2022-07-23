@@ -18,7 +18,8 @@ namespace BookShop.Api.Repositories.Services
 
         public async Task AddBookCategoryAsync(BookCategoryAddDto bookCategoryAddDto)
         {
-            await _bookCategoryRepository.AddBookCategotyAsync(_mapper.Map<BookCategory>(bookCategoryAddDto));
+            var category = _mapper.Map<BookCategory>(bookCategoryAddDto);
+            await _bookCategoryRepository.AddBookCategotyAsync(category);
 
         }
 

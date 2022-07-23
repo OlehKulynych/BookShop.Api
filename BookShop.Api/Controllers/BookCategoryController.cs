@@ -34,7 +34,7 @@ namespace BookShop.Api.Controllers
 
 
         [HttpGet]
-        [Route("CategoryById")]
+        [Route("CategoryById/{id}")]
         public async Task<ActionResult<BookCategoryDto>> CategoryId(int id)
         {
 
@@ -51,6 +51,7 @@ namespace BookShop.Api.Controllers
 
         }
         [HttpPost]
+        [Route("AddCategory")]
         public async Task<ActionResult> NewCategory(BookCategoryAddDto bookCategoryAddDto)
         {
             await _bookCategoryService.AddBookCategoryAsync(bookCategoryAddDto);
@@ -60,6 +61,7 @@ namespace BookShop.Api.Controllers
 
 
         [HttpDelete]
+        [Route("DeleteBookCategory/{id}")]
         public async Task<ActionResult> DeleteBookCategory(int id)
         {
 
@@ -69,6 +71,7 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPut]
+        [Route("UpdateBookCategory")]
         public async Task<ActionResult> UpdateBookCategory(BookCategoryDto bookCategoryDto)
         {
 
