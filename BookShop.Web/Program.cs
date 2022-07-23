@@ -12,6 +12,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 
 builder.Services.AddScoped<IBookService, BookService>();
 
+builder.Services.AddScoped<IBookCategoryService, BookCategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
 await builder.Build().RunAsync();

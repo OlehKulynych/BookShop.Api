@@ -15,7 +15,9 @@ namespace BookShop.Api.Profiles
                 .ForMember(
                 dest => dest.Name,
                 opt => opt.MapFrom(src => src.Name)).ReverseMap();
-            CreateMap<BookCategory, BookCategoryAddDto>();
+            CreateMap<BookCategory, BookCategoryAddDto>()
+                .ForMember(dest => dest.Name,
+                opt => opt.MapFrom(src => src.Name)).ReverseMap();
             CreateMap<Book, BookDto>()
                 .ForMember(dest=>dest.BookCategoryName,
                 opt => opt.MapFrom(src => src.BookCategory.Name)).ReverseMap();

@@ -1,0 +1,20 @@
+﻿@page "/BookCategory/AddNewCategory"
+@inherits AddBookCategoryBase
+
+
+@if(ErrorMessage != null)
+{
+    <p>@ErrorMessage</p>
+}
+<h3>AddBookCategory</h3>
+
+<input @bind="BookCategory.Name" placeholder="Name"/>
+
+
+<button @onclick="@(async()=> {
+if(BookCategory.Name != null)
+{
+await AddBookCategory();
+}
+})"> Add New Category</button>
+
