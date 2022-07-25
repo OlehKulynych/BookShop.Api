@@ -59,7 +59,7 @@ namespace BookShop.Api.Controllers
             }
         }
 
-        [Route("LogIn")]
+        [Route("SignIn")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> LogIn([FromBody] LogInUserDto userDto)

@@ -25,9 +25,9 @@ namespace BookShop.Api.Profiles
             CreateMap<CartItem, CartItemDto>()
                 .ForMember(
                 dest => dest.Id,
-                opt => opt.MapFrom(src=>src.Id))
+                opt => opt.MapFrom(src => src.Id))
                 .ForMember(
-                dest=>dest.BookId,
+                dest => dest.BookId,
                 opt => opt.MapFrom(src => src.BookId))
                 .ForMember(
                 dest => dest.CartId,
@@ -40,7 +40,7 @@ namespace BookShop.Api.Profiles
                 opt => opt.MapFrom(src => src.Book.Description))
                 .ForMember(
                 dest => dest.ImageUrl,
-                opt => opt.MapFrom(src=> src.Book.ImageUrl))
+                opt => opt.MapFrom(src => src.Book.ImageUrl))
                 .ForMember(
                 dest => dest.Price,
                 opt => opt.MapFrom(src => src.Book.Price))
@@ -49,7 +49,7 @@ namespace BookShop.Api.Profiles
                 opt => opt.MapFrom(src => src.Quantity))
                 .ForMember(
                 dest => dest.TotalPrice,
-                opt => opt.MapFrom(src => (src.Quantity*src.Book.Price)));
+                opt => opt.MapFrom(src => (src.Quantity * src.Book.Price)));
         }
 
     }

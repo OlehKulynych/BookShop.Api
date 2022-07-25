@@ -1,6 +1,7 @@
 using BookShop.Api.Data;
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Api.Controllers
@@ -50,8 +51,11 @@ namespace BookShop.Api.Controllers
 
 
         }
+
+
         [HttpPost]
         [Route("AddCategory")]
+        [Authorize]
         public async Task<ActionResult> NewCategory(BookCategoryAddDto bookCategoryAddDto)
         {
             await _bookCategoryService.AddBookCategoryAsync(bookCategoryAddDto);

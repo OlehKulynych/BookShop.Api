@@ -16,28 +16,28 @@ namespace BookShop.Api.Repositories.Services
             _bookRepository = bookRepository;
         }
 
-        public async Task<IEnumerable<CartItemDto>> GetCartItemsAsync(int userId)
+        public async Task<IEnumerable<CartItemDto>> GetCartItemsAsync(string userId)
         {
             var cartItems = await _cartRepository.GetItemsByUserIdAsync(userId);
 
             var cartItemDtos = _mapper.Map<IEnumerable<CartItemDto>>(cartItems);
-        
+
             return cartItemDtos;
         }
 
         public async Task<CartItemDto> GetCartItemAsync(int Id)
         {
-     
+
             var cartItem = await _cartRepository.GetItemByIdAsync(Id);
 
-            return _mapper.Map<CartItemDto>(cartItem); 
-            
+            return _mapper.Map<CartItemDto>(cartItem);
+
 
         }
 
         public async Task<CartItemDto> AddItemToCartAsync(CartItemAddDto cartItemAddDto)
         {
-            var cartItem =  await _cartRepository.AddItemToCartAsync(cartItemAddDto);
+            var cartItem = await _cartRepository.AddItemToCartAsync(cartItemAddDto);
             return _mapper.Map<CartItemDto>(cartItem);
         }
     }

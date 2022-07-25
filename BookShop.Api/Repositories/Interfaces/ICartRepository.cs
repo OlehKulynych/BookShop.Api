@@ -10,7 +10,7 @@ namespace BookShop.Api.Repositories.Interfaces
         Task<CartItem> DeleteItemFromCartAsync(int id);
         Task<CartItem> GetItemByIdAsync(int id);
 
-        Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(int userId);
+        Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(string userId);
 
     }
 }

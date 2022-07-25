@@ -15,8 +15,8 @@ namespace BookShop.Api.Repositories
             _dbContext = dbContext;
         }
 
-
-        private async Task<bool> CartItemExistAsync(int cartId, int bookId)
+   
+        private async Task<bool> CartItemExistAsync(string cartId, int bookId)
         {
             return await _dbContext.CartItems.AnyAsync(c => c.CartId == cartId && c.BookId == bookId);
         }
@@ -25,22 +25,23 @@ namespace BookShop.Api.Repositories
         {
             //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
             //{
+    
+            var item = new CartItem
+            {
+                CartId = cartItemAddDto.CartId,
+                BookId = cartItemAddDto.BookId,
+                Quantity = cartItemAddDto.Quantity
+            };
 
-                var item = new CartItem {
-                    CartId = cartItemAddDto.CartId,
-                    BookId = cartItemAddDto.BookId,
-                    Quantity = cartItemAddDto.Quantity
-                };
+            if (item != null)
+            {
+                var result = _dbContext.CartItems.Add(item);
+                await _dbContext.SaveChangesAsync();
+                return await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == item.Id).SingleOrDefaultAsync();
 
-                if (item != null)
-                {
-                    var result = _dbContext.CartItems.Add(item);
-                    await _dbContext.SaveChangesAsync();
-                    return await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == item.Id).SingleOrDefaultAsync();
-
-                }
+            }
             //}
-          
+
             return null;
         }
 
@@ -53,13 +54,15 @@ namespace BookShop.Api.Repositories
         {
             var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == id).SingleOrDefaultAsync();
             return cart;
+
         }
 
-        public async Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(int userId)
+        public async Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(string userId)
         {
             var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Cart.UserId == userId).ToListAsync();
 
             return cart;
+
         }
 
         public Task<CartItem> UpdateQuantityAsync(int id, CartItemQuantityDto cartItemQuantityDto)
