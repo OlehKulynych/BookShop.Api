@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookShop.Shared.DTO
 {
-    public class CartItemQuantityDto
+    public class BookCategoryAddDto
     {
-        public int CartItemId { get; set; }
-        public int Quantity { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace BookShop.Api.Migrations
 
                     b.HasIndex("BookCategoryId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Api.Models.BookCategory", b =>
@@ -72,7 +72,7 @@ namespace BookShop.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BookCategories");
+                    b.ToTable("BookCategories", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Api.Models.Cart", b =>
@@ -88,7 +88,7 @@ namespace BookShop.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Api.Models.CartItem", b =>
@@ -114,7 +114,7 @@ namespace BookShop.Api.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Api.Models.User", b =>
@@ -131,7 +131,7 @@ namespace BookShop.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Api.Models.Book", b =>

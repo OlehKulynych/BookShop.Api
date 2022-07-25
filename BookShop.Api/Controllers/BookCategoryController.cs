@@ -1,6 +1,6 @@
-﻿using BookShop.Api.Data;
+using BookShop.Api.Data;
 using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Api.Controllers
@@ -16,92 +16,67 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookCategoryDTO>>> Index()
+        public async Task<ActionResult<IEnumerable<BookCategoryDto>>> Index()
         {
-            try
+
+            var categories = await _bookCategoryService.GetBookCategoriesAsync();
+            if (categories == null)
             {
-                var categories = await _bookCategoryService.GetBookCategoriesAsync();
-                if (categories == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(categories);
-                }
+                return NotFound();
             }
-            catch (Exception)
+            else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Ok(categories);
             }
+
 
         }
 
 
         [HttpGet]
-        [Route("CategoryById")]
-        public async Task<ActionResult<BookCategoryDTO>> CategoryId(int id)
+        [Route("CategoryById/{id}")]
+        public async Task<ActionResult<BookCategoryDto>> CategoryId(int id)
         {
-            try
+
+            var category = await _bookCategoryService.GetBookCategoryByIdAsync(id);
+            if (category == null)
             {
-                var category = await _bookCategoryService.GetBookCategoryByIdAsync(id);
-                if (category == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(category);
-                }
+                return NotFound();
             }
-            catch (Exception)
+            else
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return Ok(category);
             }
+
 
         }
         [HttpPost]
-        public async Task<ActionResult> NewCategory(BookCategoryDTO bookCategoryDTO)
+        [Route("AddCategory")]
+        public async Task<ActionResult> NewCategory(BookCategoryAddDto bookCategoryAddDto)
         {
-            try
-            {
-                await _bookCategoryService.AddBookCategoryAsync(bookCategoryDTO);
-                return Ok(bookCategoryDTO);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-           
+            await _bookCategoryService.AddBookCategoryAsync(bookCategoryAddDto);
+            return Ok(bookCategoryAddDto);
+
         }
 
 
         [HttpDelete]
+        [Route("DeleteBookCategory/{id}")]
         public async Task<ActionResult> DeleteBookCategory(int id)
         {
-            try
-            {
-                await _bookCategoryService.DeleteBookCategoryAsync(id);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+
+            await _bookCategoryService.DeleteBookCategoryAsync(id);
+            return Ok();
+
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBookCategory(BookCategoryDTO bookCategoryDTO)
+        [Route("UpdateBookCategory")]
+        public async Task<ActionResult> UpdateBookCategory(BookCategoryDto bookCategoryDto)
         {
-            try
-            {
-                await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDTO);
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+
+            await _bookCategoryService.UpdateBookCategoryAsync(bookCategoryDto);
+            return Ok();
         }
     }
 }

@@ -1,40 +1,28 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.DTO.DTO;
+using BookShop.Shared.DTO;
 using BookShop.Api.Models;
+using AutoMapper;
 
 namespace BookShop.Api.Repositories.Services
 {
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
-        private readonly IWebHostEnvironment? _appEnvironment;
-        public BookService(IBookRepository bookRepository)
+        private readonly IMapper _mapper;
+
+        public BookService(IBookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
+            _mapper = mapper;
         }
 
-        public async Task AddBookAsync(BookDTO bookDTO, IFormFile uploadedImage)
+        public async Task AddBookAsync(BookDto bookDto)
         {
-            if(uploadedImage != null)
-            {
-                string path = "/img/" + uploadedImage.FileName;
 
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedImage.CopyToAsync(fileStream);
-                }
-                await _bookRepository.AddBookAsync(new Book
-                {
-                    Name = bookDTO.Name,
-                    Author = bookDTO.Author,
-                    Description = bookDTO.Description,
-                    ImageUrl = path,
-                    Price = bookDTO.Price,
-                    Quantity = bookDTO.Quantity,
-                    BookCategoryId = bookDTO.BookCategoryId
-                });
-            }
-           
+
+            await _bookRepository.AddBookAsync(_mapper.Map<Book>(bookDto));
+
+
         }
 
         public async Task DeleteBookAsync(int id)
@@ -42,61 +30,25 @@ namespace BookShop.Api.Repositories.Services
             await _bookRepository.DeleteBookAsync(id);
         }
 
-        public async Task UpdateBookAsync(BookDTO bookDTO)
+        public async Task UpdateBookAsync(BookDto bookDto)
         {
-            var book = await _bookRepository.GetBookByIdAsync(bookDTO.Id);
-            book.Id = bookDTO.Id;
-            book.Name = bookDTO.Name;
-            book.Author = bookDTO.Author;
-            book.Description = bookDTO.Description;
-            book.ImageUrl = bookDTO.ImageUrl;
-            book.Price = bookDTO.Price;
-            book.Quantity = bookDTO.Quantity;
-            book.BookCategoryId = bookDTO.BookCategoryId;
-
+            var book = _mapper.Map<Book>(bookDto);
             await _bookRepository.UpdateBookAsync(book);
 
         }
 
-        public async Task<BookDTO> GetBookByIdAsync(int id)
+        public async Task<BookDto> GetBookByIdAsync(int id)
         {
             var book = await _bookRepository.GetBookByIdAsync(id);
-
-            return new BookDTO
-            {
-                Id = book.Id,
-                Name = book.Name,
-                Author = book.Author,
-                Description = book.Description,
-                ImageUrl = book.ImageUrl,
-                Price = book.Price,
-                Quantity = book.Quantity,
-                BookCategoryName = book.BookCategory.Name
-            };
+            var bookDto = _mapper.Map<BookDto>(book);
+            return bookDto;
         }
 
-        public async Task<IEnumerable<BookDTO>> GetBooksAsync()
+        public async Task<IEnumerable<BookDto>> GetBooksAsync()
         {
             var books = await _bookRepository.GetBooksAsync();
-            List<BookDTO> bookDTOs = new List<BookDTO>();
-            foreach (Book book in books)
-            {
-                var bookDTO = new BookDTO
-                {
-                    Id = book.Id,
-                    Name = book.Name,
-                    Author = book.Author,
-                    Description = book.Description,
-                    ImageUrl = book.ImageUrl,
-                    Price = book.Price,
-                    Quantity = book.Quantity,
-                    BookCategoryName = book.BookCategory.Name
-                };
-                bookDTOs.Add(bookDTO);
-
-            }
-
-            return bookDTOs;
+            var bookDtos = _mapper.Map<IEnumerable<BookDto>>(books);
+            return bookDtos;
         }
     }
 }
