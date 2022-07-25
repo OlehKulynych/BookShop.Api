@@ -1,4 +1,4 @@
-﻿using BookShop.Shared.DTO;
+﻿using BookShop.Shared.Dto;
 using BookShop.Web.Services.Intefraces;
 using Microsoft.AspNetCore.Components;
 

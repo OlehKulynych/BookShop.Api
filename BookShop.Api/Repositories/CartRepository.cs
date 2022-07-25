@@ -1,7 +1,7 @@
 ﻿using BookShop.Api.Data;
 using BookShop.Api.Models;
 using BookShop.Api.Repositories.Interfaces;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Api.Repositories

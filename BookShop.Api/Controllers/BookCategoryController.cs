@@ -1,6 +1,6 @@
 using BookShop.Api.Data;
 using BookShop.Api.Repositories.Interfaces;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Api.Controllers

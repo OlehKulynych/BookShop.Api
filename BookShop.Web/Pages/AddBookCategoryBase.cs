@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using BookShop.Web.Services.Intefraces;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 
 namespace BookShop.Web.Pages
 {

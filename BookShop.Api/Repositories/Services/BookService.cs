@@ -1,5 +1,5 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 using BookShop.Api.Models;
 using AutoMapper;
 

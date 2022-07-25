@@ -1,5 +1,5 @@
 ﻿using BookShop.Api.Repositories.Interfaces;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,4 +1,4 @@
-﻿using BookShop.Shared.DTO;
+﻿using BookShop.Shared.Dto;
 using Microsoft.AspNetCore.Components;
 
 namespace BookShop.Web.Pages

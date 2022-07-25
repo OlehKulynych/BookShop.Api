@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace BookShop.Shared.Dto
 {
-    public class BookCategoryDto
+    public class CartItemQuantityDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int CartItemId { get; set; }
+        public int Quantity { get; set; }
     }
 }

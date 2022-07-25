@@ -1,4 +1,4 @@
-﻿using BookShop.Shared.DTO;
+﻿using BookShop.Shared.Dto;
 namespace BookShop.Api.Repositories.Interfaces
 {
     public interface IBookService

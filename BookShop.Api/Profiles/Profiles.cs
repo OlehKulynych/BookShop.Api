@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookShop.Api.Models;
-using BookShop.Shared.DTO;
+using BookShop.Shared.Dto;
 
 namespace BookShop.Api.Profiles
 {
