@@ -13,7 +13,15 @@ using BookShop.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+
+builder.Services.AddCors(option =>
+{
+    option.AddPolicy("CorsPolicy",
+        builder =>
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 builder.Services.AddControllers();
 
@@ -56,6 +64,7 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
 
 
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -71,10 +80,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors( policy => policy.WithOrigins("http://localhost:7142", "https://localhost:7142")
-.AllowAnyMethod()
-.WithHeaders(HeaderNames.ContentType)
-    );
+//app.UseCors( policy => policy.WithOrigins("http://localhost:7142", "https://localhost:7142")
+//.AllowAnyMethod()
+//.WithHeaders(HeaderNames.ContentType)
+//    );
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 app.UseRouting();
