@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookShop.Shared.DTO
+namespace BookShop.Shared.Dto
 {
     public class CartItemAddDto
     {
