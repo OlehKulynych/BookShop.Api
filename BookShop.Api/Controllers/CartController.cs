@@ -18,7 +18,7 @@ namespace BookShop.Api.Controllers
         [HttpGet]
         [Route("{userId}/GetCartItems")]
 
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems (int userId)
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems (string userId)
         {
 
             var cartItemsDto = await _cartService.GetCartItemsAsync(userId);

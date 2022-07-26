@@ -4,7 +4,7 @@ using BookShop.Shared.DTO;
 
 namespace BookShop.Api.Profiles
 {
-    public class Profiles: Profile
+    public class Profiles : Profile
     {
         public Profiles()
         {
@@ -19,7 +19,7 @@ namespace BookShop.Api.Profiles
                 .ForMember(dest => dest.Name,
                 opt => opt.MapFrom(src => src.Name)).ReverseMap();
             CreateMap<Book, BookDto>()
-                .ForMember(dest=>dest.BookCategoryName,
+                .ForMember(dest => dest.BookCategoryName,
                 opt => opt.MapFrom(src => src.BookCategory.Name)).ReverseMap();
             CreateMap<Book, BookAddDto>();
             CreateMap<CartItem, CartItemDto>()
@@ -50,7 +50,37 @@ namespace BookShop.Api.Profiles
                 .ForMember(
                 dest => dest.TotalPrice,
                 opt => opt.MapFrom(src => (src.Quantity * src.Book.Price)));
+            CreateMap<User, RegisterUserDto>()
+                .ForMember(
+                dest => dest.Name,
+                opt => opt.MapFrom(src => src.Name))
+                .ForMember(
+                dest => dest.Surname,
+                opt => opt.MapFrom(src => src.Surname))
+                .ForMember(
+                dest => dest.EmailAddress,
+                opt => opt.MapFrom(src => src.Email))
+                .ForMember(
+                dest => dest.Password,
+                opt => opt.MapFrom(src => src.PasswordHash));
+            CreateMap<RegisterUserDto, User>()
+                .ForMember(
+                dest => dest.Name,
+                opt => opt.MapFrom(src => src.Name))
+                .ForMember(
+                dest => dest.Surname,
+                opt => opt.MapFrom(src => src.Surname))
+                .ForMember(
+                dest => dest.Email,
+                opt => opt.MapFrom(src => src.EmailAddress))
+                .ForMember(
+                dest => dest.PasswordHash,
+                opt => opt.MapFrom(src => src.Password))
+                .ForMember(
+                dest => dest.UserName,
+                opt => opt.MapFrom(src => src.EmailAddress));
         }
-
     }
+
 }
+
