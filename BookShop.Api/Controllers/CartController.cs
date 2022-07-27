@@ -1,4 +1,5 @@
-﻿using BookShop.Api.Repositories.Interfaces;
+﻿using BookShop.Api.Models;
+using BookShop.Api.Repositories.Interfaces;
 using BookShop.Shared.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,42 +11,46 @@ namespace BookShop.Api.Controllers
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
-        public CartController(ICartService cartService)
+        private readonly Cart _cart;
+
+        public CartController(ICartService cartService, Cart cart)
         {
             _cartService = cartService;
-        }
-
-        [HttpGet]
-        [Route("{userId}/GetCartItems")]
-
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems (string userId)
-        {
-
-            var cartItemsDto = await _cartService.GetCartItemsAsync(userId);
-
-            return Ok(cartItemsDto);
+            _cart = cart;
 
         }
 
-        [HttpGet("{Id:int}")]
-        public async Task<ActionResult<CartItemDto>> GetCartItem(int Id)
-        {
+        //[HttpGet]
+        //[Route("{userId}/GetCartItems")]
 
-            var cartItemDto = _cartService.GetCartItemAsync(Id);
+        //public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userId)
+        //{
 
-            return Ok(cartItemDto);
+        //    var cartItemsDto = await _cartService.GetCartItemsAsync(userId);
+
+        //    return Ok(cartItemsDto);
+
+        //}
+
+        //[HttpGet("{Id:int}")]
+        //public async Task<ActionResult<CartItemDto>> GetCartItem(int Id)
+        //{
+
+        //    var cartItemDto = _cartService.GetCartItemAsync(Id);
+
+        //    return Ok(cartItemDto);
 
 
-        }
-        [HttpPost]
-        public async Task<ActionResult<CartItemDto>> AddItemToCart([FromBody] CartItemAddDto cartItemAddDto)
-        {
+        //}
+        //[HttpPost]
+        //public async Task<ActionResult<CartItemDto>> AddItemToCart([FromBody] CartItemAddDto cartItemAddDto)
+        //{
 
+        //    cartItemAddDto.CartId = _cart.Id;
+        //    var cartItemDto = await _cartService.AddItemToCartAsync(cartItemAddDto);
 
-               var cartItemDto = await _cartService.AddItemToCartAsync(cartItemAddDto);
-
-                return CreatedAtAction(nameof(GetCartItem), new { id = cartItemDto.Id }, cartItemDto);
-        }
+        //    return CreatedAtAction(nameof(GetCartItem), new { id = cartItemDto.Id }, cartItemDto);
+        //}
 
     }
 }
