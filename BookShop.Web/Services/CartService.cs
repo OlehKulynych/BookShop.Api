@@ -1,4 +1,5 @@
-﻿using BookShop.Shared.DTO;
+﻿using Blazored.LocalStorage;
+using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using System.Net.Http.Json;
 
@@ -7,61 +8,73 @@ namespace BookShop.Web.Services
     public class CartService : ICartService
     {
         private readonly HttpClient _httpClient;
-        public CartService(HttpClient httpClient)
+        private readonly IBookService _bookService;
+        private readonly ILocalStorageService _localStorageService;
+        public CartService(HttpClient httpClient, IBookService bookService, ILocalStorageService localStorageService)
         {
             _httpClient = httpClient;
+            _bookService = bookService;
+            _localStorageService = localStorageService;
+
         }
 
-        public async Task<CartItemDto> AddItemToCart(CartItemAddDto cartItemAddDto)
+        public async Task AddItemToCart(CartItemAddDto cartItemAddDto)
         {
-            try
+            if (cartItemAddDto != null)
             {
-                var responce = await _httpClient.PostAsJsonAsync<CartItemAddDto>("api/Cart",cartItemAddDto);
+                var cart = await _localStorageService.GetItemAsync<List<CartItemAddDto>>("cart");
+                if (cart == null)
+                {
+                    cart = new List<CartItemAddDto>();
 
-                if(responce.IsSuccessStatusCode)
-                {
-                    if(responce.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-                        return default(CartItemDto);
-                    }
-                    return await responce.Content.ReadFromJsonAsync<CartItemDto>();
                 }
-                else
+                var item = cart.FirstOrDefault(i => i.BookId == cartItemAddDto.BookId);
+                if (item != null)
                 {
-                    var message = await responce.Content.ReadAsStringAsync();
-                    throw new Exception(message);
+                    cart.Remove(item);
+                    cartItemAddDto.Quantity += item.Quantity;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                cart.Add(cartItemAddDto);
+                await _localStorageService.SetItemAsync("cart", cart);
+
             }
         }
 
-        public async Task<IEnumerable<CartItemDto>> GetCartItems(int userId)
+        public async Task DeleteFromCartAsync(int bookId)
         {
-            try
-            {
-                var responce = await _httpClient.GetAsync($"api/Cart/{userId}/GetCartItems"); 
+            var cart = await _localStorageService.GetItemAsync<List<CartItemAddDto>>("cart");
+            var item = cart.FirstOrDefault(i => i.BookId == bookId);
+            cart.Remove(item);
+            await _localStorageService.SetItemAsync("cart", cart);
+        }
 
-                if(responce.IsSuccessStatusCode)
-                {
-                    if(responce.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-                        return Enumerable.Empty<CartItemDto>();
-                    }
-                    return await responce.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
-                }
-                else
-                {
-                    var message = await responce.Content.ReadAsStringAsync();
-                    throw new Exception(message);
-                }
-            }
-            catch(Exception)
+        public async Task<IEnumerable<CartItemDto>> GetCartItems()
+        {
+            var cart = await _localStorageService.GetItemAsync<List<CartItemAddDto>>("cart");
+
+            var cartItemDtos = new List<CartItemDto>();
+
+            foreach (var item in cart)
             {
-                throw;
+                var book = await _bookService.GetBookById(item.BookId);
+
+                var cartItem = new CartItemDto
+                {
+                    BookName = book.Name,
+                    Description = book.Description,
+                    ImageUrl = book.ImageUrl,
+                    Price = book.Price,
+                    Quantity = item.Quantity,
+                    TotalPrice = item.Quantity * book.Price,
+                    BookId = book.Id
+                };
+                cartItemDtos.Add(cartItem);
+
             }
+            
+            return cartItemDtos;
+
         }
     }
 }

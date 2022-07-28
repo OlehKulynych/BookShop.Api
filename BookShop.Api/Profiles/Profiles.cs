@@ -28,10 +28,7 @@ namespace BookShop.Api.Profiles
                 opt => opt.MapFrom(src => src.Id))
                 .ForMember(
                 dest => dest.BookId,
-                opt => opt.MapFrom(src => src.BookId))
-                .ForMember(
-                dest => dest.CartId,
-                opt => opt.MapFrom(src => src.CartId))
+                opt => opt.MapFrom(src => src.BookId))           
                 .ForMember(
                 dest => dest.BookName,
                 opt => opt.MapFrom(src => src.Book.Name))

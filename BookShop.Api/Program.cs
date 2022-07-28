@@ -1,3 +1,4 @@
+
 using BookShop.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using BookShop.Api.Repositories.Interfaces;
@@ -13,7 +14,6 @@ using BookShop.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
 
 builder.Services.AddCors(option =>
@@ -25,6 +25,9 @@ builder.Services.AddCors(option =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddSession();
+
+
 builder.Services.AddDbContext<BookShopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -34,7 +37,8 @@ builder.Services.AddDefaultIdentity<User>().AddRoles<Role>().AddUserStore<UserSt
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new TokenValidationParameters {
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,
@@ -60,9 +64,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -76,15 +78,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 //app.UseCors( policy => policy.WithOrigins("http://localhost:7142", "https://localhost:7142")
 //.AllowAnyMethod()
 //.WithHeaders(HeaderNames.ContentType)
 //    );
 app.UseCors("CorsPolicy");
 
+
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -97,3 +101,4 @@ app.UseEndpoints(endpoints =>
 app.MapControllers();
 
 app.Run();
+
