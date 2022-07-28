@@ -3,6 +3,7 @@ using BookShop.Api.Models;
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
+using Blazored.LocalStorage;
 
 namespace BookShop.Api.Repositories
 {
@@ -15,59 +16,66 @@ namespace BookShop.Api.Repositories
             _dbContext = dbContext;
         }
 
-   
-        private async Task<bool> CartItemExistAsync(string cartId, int bookId)
-        {
-            return await _dbContext.CartItems.AnyAsync(c => c.CartId == cartId && c.BookId == bookId);
-        }
 
-        public async Task<CartItem> AddItemToCartAsync(CartItemAddDto cartItemAddDto)
-        {
-            //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
-            //{
-    
-            var item = new CartItem
-            {
-                CartId = cartItemAddDto.CartId,
-                BookId = cartItemAddDto.BookId,
-                Quantity = cartItemAddDto.Quantity
-            };
 
-            if (item != null)
-            {
-                var result = _dbContext.CartItems.Add(item);
-                await _dbContext.SaveChangesAsync();
-                return await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == item.Id).SingleOrDefaultAsync();
+        //    private async Task<bool> CartItemExistAsync(string cartId, int bookId)
+        //    {
+        //        return await _dbContext.CartItems.AnyAsync(c => c.CartId == cartId && c.BookId == bookId);
+        //    }
 
-            }
-            //}
+        //    public async Task<CartItem> AddItemToCartAsync(CartItemAddDto cartItemAddDto)
+        //    {
+        //        //if(await CartItemExistAsync(cartItemAddDto.CartId, cartItemAddDto.BookId)==false)
+        //        //{
+        //        if (!(await _dbContext.Carts.AnyAsync(c => c.Id == cartItemAddDto.CartId)))
+        //        {
+        //            _dbContext.Carts.Add(new Cart { Id = cartItemAddDto.CartId, UserId = "0" });
+        //            await _dbContext.SaveChangesAsync();
+        //        }
 
-            return null;
-        }
+        //        var item = new CartItem
+        //        {
+        //            CartId = cartItemAddDto.CartId,
+        //            BookId = cartItemAddDto.BookId,
+        //            Quantity = cartItemAddDto.Quantity
+        //        };
 
-        public Task<CartItem> DeleteItemFromCartAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //        if (item != null)
+        //        {
+        //            var result = _dbContext.CartItems.Add(item);
+        //            await _dbContext.SaveChangesAsync();
+        //            return await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == item.Id).SingleOrDefaultAsync();
 
-        public async Task<CartItem> GetItemByIdAsync(int id)
-        {
-            var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == id).SingleOrDefaultAsync();
-            return cart;
+        //        }
+        //        //}
 
-        }
+        //        return null;
+        //    }
 
-        public async Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(string userId)
-        {
-            var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Cart.UserId == userId).ToListAsync();
+        //    public Task<CartItem> DeleteItemFromCartAsync(int id)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
 
-            return cart;
+        //    public async Task<CartItem> GetItemByIdAsync(int id)
+        //    {
+        //        var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Id == id).SingleOrDefaultAsync();
+        //        return cart;
 
-        }
+        //    }
 
-        public Task<CartItem> UpdateQuantityAsync(int id, CartItemQuantityDto cartItemQuantityDto)
-        {
-            throw new NotImplementedException();
-        }
+        //    public async Task<IEnumerable<CartItem>> GetItemsByUserIdAsync(string userId)
+        //    {
+        //        var cart = await _dbContext.CartItems.Include(c => c.Book).Include(c => c.Cart).Where(c => c.Cart.UserId == userId).ToListAsync();
+
+        //        return cart;
+
+        //    }
+
+        //    public Task<CartItem> UpdateQuantityAsync(int id, CartItemQuantityDto cartItemQuantityDto)
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
     }
 }

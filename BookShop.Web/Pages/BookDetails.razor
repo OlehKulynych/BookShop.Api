@@ -20,7 +20,6 @@ else
     <p>@BookDto.Description</p>
     <p>@BookDto.Price.ToString("C")</p>
     <button class="btn-light" @onclick=" ()=> AddToCart(new CartItemAddDto{
-        CartId = '1'.ToString(),
         BookId = BookDto.Id,
         Quantity = 1
         })">Buy</button>

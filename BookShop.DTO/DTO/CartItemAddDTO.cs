@@ -8,7 +8,7 @@ namespace BookShop.Shared.DTO
 {
     public class CartItemAddDto
     {
-        public string CartId { get; set; }
+        //public string? CartId { get; set; }
         public int BookId { get; set; }
         public int Quantity { get; set; }
     }
