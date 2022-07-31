@@ -10,11 +10,22 @@ namespace BookShop.Web.Pages
         public IBookService bookService { get; set; }
 
         public IEnumerable<BookDto> Books { get; set; }
-
+        public string ErrorMessage { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            Books = await bookService.GetBooksAsync();
+            try
+            {
+                Books = await bookService.GetBooksAsync();
+                //throw new Exception(Books.ToList()[0].ImageUrl);
+
+            }
+            catch(Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+       
             
         }
+
     }
 }

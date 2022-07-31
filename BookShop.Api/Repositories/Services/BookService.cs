@@ -9,18 +9,21 @@ namespace BookShop.Api.Repositories.Services
     {
         private readonly IBookRepository _bookRepository;
         private readonly IMapper _mapper;
-
-        public BookService(IBookRepository bookRepository, IMapper mapper)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IBookCategoryRepository _bookCategoryRepository;
+        public BookService(IBookRepository bookRepository, IMapper mapper, IWebHostEnvironment webHostEnvironment, IBookCategoryRepository bookCategoryRepository)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
+            _bookCategoryRepository = bookCategoryRepository;
         }
 
-        public async Task AddBookAsync(BookDto bookDto)
+        public async Task AddBookAsync(BookAddDto bookAddDto)
         {
 
 
-            await _bookRepository.AddBookAsync(_mapper.Map<Book>(bookDto));
+            await _bookRepository.AddBookAsync(_mapper.Map<Book>(bookAddDto));
 
 
         }
@@ -33,10 +36,15 @@ namespace BookShop.Api.Repositories.Services
         public async Task UpdateBookAsync(BookDto bookDto)
         {
             var book = _mapper.Map<Book>(bookDto);
+            book.BookCategory = await _bookCategoryRepository.GetCategoryByIdAsync(bookDto.BookCategoryId);
             await _bookRepository.UpdateBookAsync(book);
 
         }
+        public async Task UpdateImageAsync(BookUpdateImageDto bookUpdateImage)
+        {
+            await _bookRepository.UpdateImageAsync(bookUpdateImage.Id, bookUpdateImage.Image);
 
+        }
         public async Task<BookDto> GetBookByIdAsync(int id)
         {
             var book = await _bookRepository.GetBookByIdAsync(id);

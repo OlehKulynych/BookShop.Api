@@ -11,5 +11,6 @@ namespace BookShop.Api.Repositories.Interfaces
 
         public Task UpdateBookCategoryAsync(BookCategoryDto bookCategoryDto);
         public Task DeleteBookCategoryAsync(int id);
+
     }
 }

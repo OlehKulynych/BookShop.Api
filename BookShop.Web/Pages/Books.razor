@@ -2,6 +2,8 @@
 @inherits BooksBase
 <h3>Books</h3>
 
+<h1>@ErrorMessage</h1>
+
 @if(Books == null)
 {
     <h3>Empty...</h3>
@@ -14,7 +16,7 @@ else
     {
         var books = new List<BookDto>();
         books = Books.ToList();
-        
         <DisplayBook Books="@books"></DisplayBook>
+       
     }
 }

@@ -50,15 +50,17 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddNewBook(BookDto bookDto)
+        [Route("addbook")]
+        public async Task<ActionResult> AddNewBook(BookAddDto bookAddDto)
         {
 
-            await _bookService.AddBookAsync(bookDto);
-            return Ok(bookDto);
+            await _bookService.AddBookAsync(bookAddDto);
+            return Ok(bookAddDto);
 
         }
 
         [HttpDelete]
+        [Route("DeleteBook/{id}")]
         public async Task<ActionResult> DeleteBook(int id)
         {
 
@@ -68,12 +70,22 @@ namespace BookShop.Api.Controllers
         }
 
         [HttpPut]
-
+        [Route("UpdateBook")]
         public async Task<ActionResult> UpdateBook (BookDto bookDto)
         {
 
                 await _bookService.UpdateBookAsync(bookDto);
                 return Ok();
+
+        }
+
+        [HttpPut]
+        [Route("UpdateImage")]
+        public async Task<ActionResult> UpdateImage(BookUpdateImageDto bookUpdateImage)
+        {
+
+            await _bookService.UpdateImageAsync(bookUpdateImage);
+            return Ok();
 
         }
     }

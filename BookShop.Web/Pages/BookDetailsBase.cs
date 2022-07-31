@@ -52,5 +52,20 @@ namespace BookShop.Web.Pages
                 ErrorMessage = ex.Message;
             }
         }
+
+        protected async Task DeleteBook(int id)
+        {
+            try
+            {
+                await bookService.DeleteBookAsync(id);
+                navigationManager.NavigateTo("/", true);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
+
+
     }
 }

@@ -23,4 +23,12 @@ else
         BookId = BookDto.Id,
         Quantity = 1
         })">Buy</button>
+
+    <a class="btn btn-secondary" href="/Book/EditBook/@BookDto.Id"> <span class="oi oi-pencil" aria-hidden="true"></span></a>
+
+    <a class="btn btn-secondary" href="/Book/EditBookImage/@BookDto.Id"> <span class="oi oi-image" aria-hidden="true"></span></a>
+    <button @onclick="async() => await DeleteBook(BookDto.Id)">
+          <span class="oi oi-trash" aria-hidden="true"></span>
+    </button>
+
 }

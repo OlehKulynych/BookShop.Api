@@ -32,13 +32,26 @@ namespace BookShop.Api.Repositories
 
         public async Task DeleteBookAsync(int id)
         {
-            var book = await GetBookByIdAsync(id);
-            _dbContext.Books.Remove(book);
-            await _dbContext.SaveChangesAsync();
+            var book = await _dbContext.Books.Include(c => c.BookCategory).Where(i => i.Id == id).FirstOrDefaultAsync();
+            if(book!=null)
+            {
+                book.isDeleted = true;
+                await _dbContext.SaveChangesAsync();
+            }
+            //_dbContext.Books.Remove(book);
+            
         }
         public async Task UpdateBookAsync(Book book)
         {
+           
             _dbContext.Books.Update(book);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateImageAsync(int Id, string Image)
+        {
+           var book = await _dbContext.Books.Where(i => i.Id == Id).FirstOrDefaultAsync();
+            book.ImageUrl = Image;
             await _dbContext.SaveChangesAsync();
         }
     }
