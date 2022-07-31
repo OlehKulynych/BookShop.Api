@@ -10,7 +10,6 @@ namespace BookShop.Shared.DTO
     {
         public int Id { get; set; }
         public int BookId { get; set; }
-        public int CartId { get; set; }
         public string BookName { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }

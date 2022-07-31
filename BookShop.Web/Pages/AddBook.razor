@@ -1,0 +1,35 @@
+﻿@page "/Book/AddBook"
+
+@inherits AddBookBase
+
+
+@if (ErrorMessage != null)
+{
+    <p>@ErrorMessage</p>
+}
+<h3>Add Book</h3>
+<EditForm Model="book">
+    <input @bind="book.Name" placeholder="Name" />
+    <input @bind="book.Author" placeholder="Author" />
+    <input @bind="book.Description" placeholder="Description" />
+    <input @bind="book.Price" type="number" placeholder="Price" />
+    <input @bind="book.Quantity" type="number" placeholder="Quantity" />
+
+
+    <InputFile OnChange="@OnInputFileChanged"/>
+    <img src="@contentString">
+    <InputSelect @bind-Value="book.BookCategoryId" class="form-control">
+        <option>Select Category</option>
+        @foreach (var category in bookCategoryDtos)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+
+    </InputSelect>
+
+</EditForm>
+
+
+<button @onclick="AddBook"> Add Book</button>
+
+

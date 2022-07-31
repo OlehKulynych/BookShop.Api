@@ -1,8 +1,14 @@
 ﻿@inherits DisplayBookBase
-@foreach(var item in Books)
-        {
-            <a href="/BookDetails/@item.Id"><h5>@item.Name</h5></a>
-            <p>@item.Author</p>
-            <p>@item.Price.ToString("C")</p>
-        }
-        
+@foreach (var item in Books)
+{
+    if (!item.IsDeleted)
+    {
+        <img src="data:image/jpeg;base64,@item.ImageUrl" />
+    <a href="/BookDetails/@item.Id"><h5>@item.Name</h5></a>
+    <p>@item.Author</p>
+    <p>@item.Price.ToString("C")</p>
+
+    }
+    
+
+}

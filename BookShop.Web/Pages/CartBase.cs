@@ -1,13 +1,17 @@
-﻿using BookShop.Shared.DTO;
+﻿using Blazored.LocalStorage;
+using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
 using Microsoft.AspNetCore.Components;
 
 namespace BookShop.Web.Pages
 {
-    public class CartBase: ComponentBase
+    public class CartBase : ComponentBase
     {
         [Inject]
         public ICartService cartService { get; set; }
+
+        [Inject]
+        public NavigationManager navigationManager { get; set; }
 
         public IEnumerable<CartItemDto> cartItems { get; set; }
 
@@ -16,8 +20,22 @@ namespace BookShop.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             try
+            {               
+                cartItems = await cartService.GetCartItems();
+            }
+            catch (Exception ex)
             {
-                cartItems = await cartService.GetCartItems(1); //userId
+                ErrorMessage = ex.Message;
+            }
+        }
+
+        protected async Task DeleteFromCart(int bookId)
+        {
+            try
+            {
+                cartService.DeleteFromCartAsync(bookId);
+
+                navigationManager.NavigateTo("/Cart",true);
             }
             catch (Exception ex)
             {

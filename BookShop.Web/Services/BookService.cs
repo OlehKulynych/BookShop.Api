@@ -52,6 +52,7 @@ namespace BookShop.Web.Services
                         return Enumerable.Empty<BookDto>();
                     }
                     return await response.Content.ReadFromJsonAsync<IEnumerable<BookDto>>();
+
                 }
                 else
                 {
@@ -64,6 +65,26 @@ namespace BookShop.Web.Services
             {
                 throw;
             }
+        }
+
+        public async Task AddBookCategoryAsync(BookAddDto bookAddDto)
+        {
+            await _httpClient.PostAsJsonAsync("api/book/addbook", bookAddDto);
+
+        }
+        public async Task DeleteBookAsync(int id)
+        {
+            await _httpClient.DeleteAsync($"api/Book/DeleteBook/{id}");
+        }
+
+        public async Task UpdateBookAsync(BookDto bookDto)
+        {
+            await _httpClient.PutAsJsonAsync("api/Book/UpdateBook", bookDto);
+        }
+
+        public async Task UpdateImageAsync(BookUpdateImageDto bookUpdateImageDto)
+        {
+            await _httpClient.PutAsJsonAsync("api/Book/UpdateImage", bookUpdateImageDto);
         }
     }
 }

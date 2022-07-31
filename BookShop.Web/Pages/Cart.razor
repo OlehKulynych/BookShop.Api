@@ -5,13 +5,19 @@
 <h3>Shopping Cart</h3>
 
 <h1>@ErrorMessage</h1>
-@if(cartItems != null)
+@if (cartItems != null)
 {
-    @foreach(var item in cartItems)
-{
-    <h4>@item.BookName</h4>
-    <p>@item.Description</p>
-    <p>@item.Price.ToString("C")</p>
-}
+    @foreach (var item in cartItems)
+    {
+        <h4>@item.BookName</h4>
+        <p>@item.Description</p>
+        <p>@item.Price.ToString("C")</p>
+
+        <p>Total: @item.TotalPrice.ToString("C")</p>
+
+        <button @onclick="async () => {await DeleteFromCart(item.BookId);}" class="btn btn-secondary">
+            <span class="oi oi-trash" aria-hidden="true"></span>
+        </button>
+    }
 }
 

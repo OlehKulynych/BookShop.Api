@@ -1,0 +1,45 @@
+﻿@page "/SignIn"
+@inherits SignInBase
+<h3>Sign In</h3>
+
+@if(_signInSuccessful==false)
+{
+    <EditForm Model="_logInUserDto" OnValidSubmit="SignInUser">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <InputText @bind-Value="_logInUserDto.EmailAddress" id="email" class="form-control" />
+        <ValidationMessage For="@(()=> _logInUserDto.EmailAddress)" />
+    </div>
+
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <InputText @bind-Value="_logInUserDto.Password" typeof="password" id="password" class="form-control" />
+        <ValidationMessage For="@(()=> _logInUserDto.Password)" />
+    </div>
+
+    <ValidationSummary/>
+
+    <button type="submit" class="btn btn-primary btn-lg"> Sign In </button>
+    @if(_attemptToSignInFailed)
+    {
+        <p class="text-danger">Sign In failed. Check your inputs.</p>
+    }
+
+
+    </EditForm>
+
+}
+else
+{
+    <h1>SignIn Successful.</h1>
+    <a href="/" class="btn btn-primary btn-lg">Catalog</a>
+}
+
+
+
+
+@code {
+  
+}

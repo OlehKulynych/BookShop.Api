@@ -10,5 +10,6 @@ namespace BookShop.Api.Repositories.Interfaces
         Task AddBookAsync(Book book);
         Task DeleteBookAsync(int id);
         Task UpdateBookAsync(Book book);
+        Task UpdateImageAsync(int Id, string Image);
     }
 }

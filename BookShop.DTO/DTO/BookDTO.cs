@@ -16,6 +16,7 @@ namespace BookShop.Shared.DTO
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int BookCategoryId { get; set; }
+        public bool IsDeleted { get; set; }
         public string BookCategoryName { get; set; }
     }
 }

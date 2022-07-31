@@ -1,0 +1,30 @@
+﻿@page "/Book/EditBook/{Id:int}"
+@inherits EditBookBase
+
+
+@if(ErrorMessage != null)
+{
+    <p>@ErrorMessage</p>
+}
+<h3>EditBook</h3>
+
+<EditForm Model="book">
+    <input @bind="book.Name" placeholder="Name" />
+    <input @bind="book.Author" placeholder="Author" />
+    <input @bind="book.Description" placeholder="Description" />
+    <input @bind="book.Price" type="number" placeholder="Price" />
+    <input @bind="book.Quantity" type="number" placeholder="Quantity" />
+
+    <InputSelect @bind-Value="book.BookCategoryId" class="form-control">
+        <option selected value="@book.BookCategoryId">@book.BookCategoryName</option>
+        @foreach (var category in bookCategoryDtos)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+
+    </InputSelect>
+    <button @onclick="UpdateBook"> Edit Book</button>
+
+</EditForm>
+
+
