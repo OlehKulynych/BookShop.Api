@@ -6,5 +6,6 @@ namespace BookShop.Api.Repositories.Interfaces
     {
         Task<bool> Register(RegisterUserDto registerUserDto);
         Task<string> LogIn(LogInUserDto userDto);
+        Task<UserDto> GetCurrentUserAsync(string email);
     }
 }

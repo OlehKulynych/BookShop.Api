@@ -84,5 +84,12 @@ namespace BookShop.Api.Repositories.Services
 
             return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
         }
+
+        public async Task<UserDto> GetCurrentUserAsync(string email)
+        {
+            var user =await _userManager.FindByNameAsync(email);
+            var identityUser = _mapper.Map<UserDto>(user);
+            return identityUser;
+        }
     }
 }

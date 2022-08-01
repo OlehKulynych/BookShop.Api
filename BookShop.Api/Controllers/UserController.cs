@@ -58,5 +58,13 @@ namespace BookShop.Api.Controllers
             }
         }
 
+        [Route("CurrentUser/{email}")]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUserByEmailAsync(string email)
+        {
+            var user = await _userService.GetCurrentUserAsync(email);
+            return Ok(user);
+        }
+
     }
 }
