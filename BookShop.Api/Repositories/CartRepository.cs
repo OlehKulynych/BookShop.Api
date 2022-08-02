@@ -3,7 +3,6 @@ using BookShop.Api.Models;
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
-using Blazored.LocalStorage;
 
 namespace BookShop.Api.Repositories
 {
