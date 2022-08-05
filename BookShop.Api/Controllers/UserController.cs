@@ -34,11 +34,11 @@ namespace BookShop.Api.Controllers
             }
             else
             {
-                string errorMessage = "Error register";
+                string errorMessage = "Error register: ";
                 foreach (var errors in identityResult.Errors)
                 {
                     errorMessage += Environment.NewLine;
-                    errorMessage += $"Code: {errors.Code} : {errors.Description}";
+                    errorMessage += $"{errors.Description}";
 
                 }
                 return StatusCode(StatusCodes.Status500InternalServerError, errorMessage);
