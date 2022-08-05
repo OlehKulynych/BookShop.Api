@@ -22,31 +22,7 @@ namespace BookShop.Api.Profiles
                 .ForMember(dest => dest.BookCategoryName,
                 opt => opt.MapFrom(src => src.BookCategory.Name)).ReverseMap();
             CreateMap<BookAddDto, Book>().ReverseMap();
-            CreateMap<CartItem, CartItemDto>()
-                .ForMember(
-                dest => dest.Id,
-                opt => opt.MapFrom(src => src.Id))
-                .ForMember(
-                dest => dest.BookId,
-                opt => opt.MapFrom(src => src.BookId))
-                .ForMember(
-                dest => dest.BookName,
-                opt => opt.MapFrom(src => src.Book.Name))
-                .ForMember(
-                dest => dest.Description,
-                opt => opt.MapFrom(src => src.Book.Description))
-                .ForMember(
-                dest => dest.ImageUrl,
-                opt => opt.MapFrom(src => src.Book.ImageUrl))
-                .ForMember(
-                dest => dest.Price,
-                opt => opt.MapFrom(src => src.Book.Price))
-                .ForMember(
-                dest => dest.Quantity,
-                opt => opt.MapFrom(src => src.Quantity))
-                .ForMember(
-                dest => dest.TotalPrice,
-                opt => opt.MapFrom(src => (src.Quantity * src.Book.Price)));
+          
             CreateMap<User, RegisterUserDto>()
                 .ForMember(
                 dest => dest.Name,

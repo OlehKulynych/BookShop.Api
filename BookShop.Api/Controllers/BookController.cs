@@ -2,6 +2,7 @@
 using BookShop.Api.Repositories.Interfaces;
 using BookShop.Api.Models;
 using BookShop.Shared.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookShop.Api.Controllers
 {
@@ -51,6 +52,7 @@ namespace BookShop.Api.Controllers
 
         [HttpPost]
         [Route("addbook")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> AddNewBook(BookAddDto bookAddDto)
         {
 
@@ -61,6 +63,7 @@ namespace BookShop.Api.Controllers
 
         [HttpDelete]
         [Route("DeleteBook/{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> DeleteBook(int id)
         {
 
@@ -71,6 +74,7 @@ namespace BookShop.Api.Controllers
 
         [HttpPut]
         [Route("UpdateBook")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> UpdateBook (BookDto bookDto)
         {
 
@@ -81,6 +85,7 @@ namespace BookShop.Api.Controllers
 
         [HttpPut]
         [Route("UpdateImage")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> UpdateImage(BookUpdateImageDto bookUpdateImage)
         {
 

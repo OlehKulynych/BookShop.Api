@@ -7,11 +7,18 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank" class="me-2">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    @context.User.Identity.Name
+                </Authorized>
+            </AuthorizeView>
         </div>
-
+     
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+

@@ -1,5 +1,6 @@
 ﻿@using Blazored.LocalStorage
 @using BookShop.Web.Providers
+@using System.Security.Claims
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BookShop.Web</a>
@@ -35,6 +36,22 @@
             </NavLink>
         </div>
 
+          <AuthorizeView Roles="ADMIN">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Book/AddBook">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Add Book
+                    </NavLink>
+                </div>
+                 <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="BookCategoty/AddNewCategory">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Add Book Category
+                    </NavLink>
+                </div>
+
+            </Authorized>
+        </AuthorizeView>
+
 
         <AuthorizeView>
             <Authorized>
@@ -44,7 +61,7 @@
                     </button>
                 </div>
             </Authorized>
-
+            
             <NotAuthorized>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="signin">
@@ -59,8 +76,9 @@
                 </div>
 
             </NotAuthorized>
-        </AuthorizeView>
 
+        </AuthorizeView>
+      
 
     </nav>
 </div>

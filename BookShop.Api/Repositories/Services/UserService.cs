@@ -18,26 +18,24 @@ namespace BookShop.Api.Repositories.Services
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        public UserService(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration, IMapper mapper)
+        public UserService(SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration, IMapper mapper, RoleManager<Role> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _configuration = configuration;
             _mapper = mapper;
+            _roleManager = roleManager;
         }
-        public async Task<bool> Register(RegisterUserDto registerUserDto)
+        public async Task<IdentityResult> Register(RegisterUserDto registerUserDto)
         {
 
             var identityUser = _mapper.Map<User>(registerUserDto); 
             var identityResult = await _userManager.CreateAsync(identityUser, registerUserDto.Password);
 
-            if(identityResult.Succeeded)
-            {
-                return true;
-            }
-            return false;
+            return identityResult;
         }
 
         public async Task<string> LogIn(LogInUserDto userDto)
@@ -90,6 +88,37 @@ namespace BookShop.Api.Repositories.Services
             var user =await _userManager.FindByNameAsync(email);
             var identityUser = _mapper.Map<UserDto>(user);
             return identityUser;
+        }
+
+        public static async Task CreateDefaultAdmin(IServiceProvider serviceProvider)
+        {
+
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            bool x = await roleManager.RoleExistsAsync("Admin");
+            if (!x)
+            { 
+                var role = new Role();
+                role.Name = "Admin";
+                await roleManager.CreateAsync(role);
+           
+
+                var user = new User();
+                user.Email = "admin@admin.com";
+                user.UserName = user.Email;
+                user.Surname = "admin";
+                user.Name = "admin";
+
+                string password = "Qwe123!";
+
+                var identityUser = await userManager.CreateAsync(user, password);
+
+                if (identityUser.Succeeded)
+                {
+                    var result1 = await userManager.AddToRoleAsync(user, "Admin");
+                }
+            }
+
         }
     }
 }

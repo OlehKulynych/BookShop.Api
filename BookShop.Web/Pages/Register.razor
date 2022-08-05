@@ -28,7 +28,8 @@
 
       <div class="form-group">
         <label for="password">Password:</label>
-        <InputText @bind-Value="_registerUserDto.Password" typeof="password" id="password" class="form-control" />
+        <InputText @bind-Value="_registerUserDto.Password" type="password" id="password" class="form-control" />
+        <input type="checkbox" @onclick="HidePassword">Show Password
         <ValidationMessage For="@(()=> _registerUserDto.Password)" />
     </div>
 
