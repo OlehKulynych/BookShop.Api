@@ -42,7 +42,7 @@ namespace BookShop.Api.Repositories.Services
         {
 
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(userDto.EmailAddress, userDto.Password, false, false);
-            if (signInResult.Succeeded == true)
+            if (signInResult.Succeeded)
             {
                 User identityUser = await _userManager.FindByNameAsync(userDto.EmailAddress);
                 string JSONWebTokenAsString = await GenerateJsonWebToken(identityUser);
@@ -56,21 +56,20 @@ namespace BookShop.Api.Repositories.Services
 
         private async Task<string> GenerateJsonWebToken(User identityUser)
         {
-            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
-            SigningCredentials credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+           var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             List<Claim> claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, identityUser.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, identityUser.Id)
+                
             };
 
             IList<string> roleNames = await _userManager.GetRolesAsync(identityUser);
             claims.AddRange(roleNames.Select(roleName => new Claim(ClaimsIdentity.DefaultRoleClaimType, roleName)));
 
-            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken
+            var jwtSecurityToken = new JwtSecurityToken
             (
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Issuer"],
