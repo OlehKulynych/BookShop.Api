@@ -26,15 +26,21 @@ namespace BookShop.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUserDto user)
         {
 
-            var result = await _userService.Register(user);
-            
-            if (result)
+            var identityResult = await _userService.Register(user);
+
+            if (identityResult.Succeeded == true)
             {
-                return Ok();
+                return Ok(new { identityResult.Succeeded });
             }
             else
             {
-                string errorMessage = "Error register... Сheck the entered data.";              
+                string errorMessage = "Error register: ";
+                foreach (var errors in identityResult.Errors)
+                {
+                    errorMessage += Environment.NewLine;
+                    errorMessage += $"{errors.Description}";
+
+                }
                 return StatusCode(StatusCodes.Status500InternalServerError, errorMessage);
             }
         }
@@ -56,6 +62,14 @@ namespace BookShop.Api.Controllers
             {
                 return Unauthorized(userDto);
             }
+        }
+
+        [Route("CurrentUser/{email}")]
+        [HttpGet]
+        public async Task<ActionResult<UserDto>> GetCurrentUserByEmailAsync(string email)
+        {
+            var user = await _userService.GetCurrentUserAsync(email);
+            return Ok(user);
         }
 
     }

@@ -25,8 +25,8 @@ builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddScoped<IBookCategoryService, BookCategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
-
-
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 await builder.Build().RunAsync();

@@ -1,21 +1,27 @@
-﻿
-@page "/BookCategory/EditCategory/{Id:int}"
+﻿@page "/BookCategory/EditCategory/{Id:int}"
 @inherits EditBookCategoryBase
 
-
-@if(ErrorMessage != null)
-{
-    <p>@ErrorMessage</p>
-}
-<h3>Edit Book Category</h3>
-
-<input @bind="BookCategory.Name" placeholder="Name"/>
+@attribute [Authorize(Roles = "ADMIN")]
 
 
-<button @onclick="@(async()=> {
-if(BookCategory.Name != null)
-{
-await UpdateCategory();
-}
-})"> Edit Category</button>
+
+        @if (ErrorMessage != null)
+        {
+            <p>@ErrorMessage</p>
+        }
+        <h3>Edit Book Category</h3>
+
+        <input @bind="BookCategory.Name" placeholder="Name" />
+
+
+        <button @onclick="@(async()=> {
+        if(BookCategory.Name != null)
+        {
+            await UpdateCategory();
+        }
+        })">
+            Edit Category
+        </button>
+
+
 

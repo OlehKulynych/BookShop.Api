@@ -1,11 +1,18 @@
 ﻿@page "/Book/EditBookImage/{Id:int}"
+
 @inherits EditImageBookBase
+
+@attribute [Authorize(Roles = "ADMIN")]
 
 
 <h3>Edit Image Book</h3>
 
 
- <InputFile OnChange="@OnInputFileChanged"/>
- <img src="@contentString">
+<InputFile OnChange="@OnInputFileChanged" />
+<img src="@contentString">
 
 <button @onclick="UpdateImage"> Edit Image</button>
+
+
+
+
