@@ -42,7 +42,5 @@ namespace BookShop.Web.Pages
                 ErrorMessage = ex.Message;
             }
         }
-
-
     }
 }

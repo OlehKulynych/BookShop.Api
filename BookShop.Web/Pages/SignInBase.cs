@@ -3,12 +3,11 @@ using BookShop.Shared.DTO;
 using BookShop.Web.Providers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
 namespace BookShop.Web.Pages
 {
-    public class SignInBase : ComponentBase
+    public class SignInBase: ComponentBase
     {
         [Inject]
         public HttpClient httpClient { get; set; }
@@ -17,23 +16,11 @@ namespace BookShop.Web.Pages
 
         [Inject]
         AuthenticationStateProvider authenticationStateProvider { get; set; }
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
-        private IJSObjectReference _jsModule;
 
         protected LogInUserDto _logInUserDto = new();
         protected bool _signInSuccessful = false;
         protected bool _attemptToSignInFailed = false;
 
-
-        protected override async Task OnInitializedAsync()
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/HidePassword.js");
-        }
-        public async Task HidePassword()
-        {
-            await _jsModule.InvokeVoidAsync("hidePassword");
-        }
 
         protected async Task SignInUser()
         {

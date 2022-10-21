@@ -55,7 +55,7 @@ namespace BookShop.Api.Controllers
 
         [HttpPost]
         [Route("AddCategory")]
-        [Authorize(Roles = "ADMIN")]
+        [Authorize]
         public async Task<ActionResult> NewCategory(BookCategoryAddDto bookCategoryAddDto)
         {
             await _bookCategoryService.AddBookCategoryAsync(bookCategoryAddDto);
@@ -66,7 +66,6 @@ namespace BookShop.Api.Controllers
 
         [HttpDelete]
         [Route("DeleteBookCategory/{id}")]
-        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> DeleteBookCategory(int id)
         {
 
@@ -77,7 +76,6 @@ namespace BookShop.Api.Controllers
 
         [HttpPut]
         [Route("UpdateBookCategory")]
-        [Authorize(Roles = "ADMIN")]
         public async Task<ActionResult> UpdateBookCategory(BookCategoryDto bookCategoryDto)
         {
 

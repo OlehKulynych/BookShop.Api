@@ -1,6 +1,5 @@
 ﻿@using Blazored.LocalStorage
 @using BookShop.Web.Providers
-@using System.Security.Claims
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BookShop.Web</a>
@@ -22,30 +21,11 @@
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
         </div>
-
-
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="cart">
-                <span class="oi oi-cart" aria-hidden="true"></span> Cart
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </div>
-
-          <AuthorizeView Roles="ADMIN">
-            <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Book/AddBook">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Add Book
-                    </NavLink>
-                </div>
-                 <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="BookCategoty/AddNewCategory">
-                        <span class="oi oi-plus" aria-hidden="true"></span> Add Book Category
-                    </NavLink>
-                </div>
-
-            </Authorized>
-        </AuthorizeView>
-
 
         <AuthorizeView>
             <Authorized>
@@ -55,9 +35,9 @@
                     </button>
                 </div>
             </Authorized>
-            
+
             <NotAuthorized>
-                <div class="nav-item px-3">
+                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="signin">
                         <span class="oi oi-account-login" aria-hidden="true"></span> Sign In
                     </NavLink>
@@ -70,9 +50,8 @@
                 </div>
 
             </NotAuthorized>
-
         </AuthorizeView>
-      
+
 
     </nav>
 </div>
@@ -94,7 +73,7 @@
 
     private async Task SignOut()
     {
-        if (await localStorageService.ContainKeyAsync("bearerToken"))
+        if(await localStorageService.ContainKeyAsync("bearerToken"))
         {
             await localStorageService.RemoveItemAsync("bearerToken");
             ((ClientAuthenticationStateProvider)authenticationStateProvider).SignOut();
