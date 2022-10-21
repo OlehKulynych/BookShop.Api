@@ -1,14 +1,14 @@
 ﻿namespace BookShop.Api.Models
 {
-    public class OrderDetail
+    public class CartItem
     {
         public int Id { get; set; }
-        public int OrderId { get; set; }
-
+        public string CartId { get; set; }
         public int BookId { get; set; }
-        public uint Price { get; set; }
+        public int Quantity { get; set; }
 
         public virtual Book Book { get; set; }
-        public virtual Order order { get; set; }
+        public virtual Cart Cart { get; set; }
+
     }
 }

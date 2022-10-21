@@ -1,15 +1,13 @@
 ﻿@page "/Book/EditBook/{Id:int}"
 @inherits EditBookBase
-@attribute [Authorize(Roles = "ADMIN")]
 
 
-
-
-@if (ErrorMessage != null)
+@if(ErrorMessage != null)
 {
     <p>@ErrorMessage</p>
 }
 <h3>EditBook</h3>
+
 <EditForm Model="book">
     <input @bind="book.Name" placeholder="Name" />
     <input @bind="book.Author" placeholder="Author" />
@@ -28,4 +26,5 @@
     <button @onclick="UpdateBook"> Edit Book</button>
 
 </EditForm>
+
 

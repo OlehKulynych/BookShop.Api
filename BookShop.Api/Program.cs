@@ -59,31 +59,17 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
 builder.Services.AddScoped<IBookCategoryService, BookCategoryService>();
 
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>();
+
 builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-
-
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
-
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-using (var serviceScope = app.Services.CreateScope())
-{
-    var services = serviceScope.ServiceProvider;
-    await UserService.CreateDefaultAdmin(services);
-}
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -114,9 +100,5 @@ app.UseEndpoints(endpoints =>
 );
 app.MapControllers();
 
-
-
-
 app.Run();
-
 

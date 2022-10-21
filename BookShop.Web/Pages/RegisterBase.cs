@@ -1,6 +1,5 @@
 ﻿using BookShop.Shared.DTO;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
 namespace BookShop.Web.Pages
@@ -9,25 +8,11 @@ namespace BookShop.Web.Pages
     {
         [Inject]
         public HttpClient httpClient { get; set; }
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
-        private IJSObjectReference _jsModule;
 
         protected RegisterUserDto _registerUserDto = new() { EmailAddress = "user@example.com", Password = "Qwe123!", Name = "admin", Surname = "admin" };
         protected bool _registerSuccessful = false;
         protected bool _attemptToRegisterFailed = false;
         protected string? _attemptToRegisterFailedErrorMessage = null;
-
-
-        protected override async Task OnInitializedAsync()
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/HidePassword.js");
-        }
-        public async Task HidePassword()
-        {
-            await _jsModule.InvokeVoidAsync("hidePassword");
-        }
-
 
         protected async Task RegisterUser()
         {

@@ -22,7 +22,31 @@ namespace BookShop.Api.Profiles
                 .ForMember(dest => dest.BookCategoryName,
                 opt => opt.MapFrom(src => src.BookCategory.Name)).ReverseMap();
             CreateMap<BookAddDto, Book>().ReverseMap();
-          
+            CreateMap<CartItem, CartItemDto>()
+                .ForMember(
+                dest => dest.Id,
+                opt => opt.MapFrom(src => src.Id))
+                .ForMember(
+                dest => dest.BookId,
+                opt => opt.MapFrom(src => src.BookId))           
+                .ForMember(
+                dest => dest.BookName,
+                opt => opt.MapFrom(src => src.Book.Name))
+                .ForMember(
+                dest => dest.Description,
+                opt => opt.MapFrom(src => src.Book.Description))
+                .ForMember(
+                dest => dest.ImageUrl,
+                opt => opt.MapFrom(src => src.Book.ImageUrl))
+                .ForMember(
+                dest => dest.Price,
+                opt => opt.MapFrom(src => src.Book.Price))
+                .ForMember(
+                dest => dest.Quantity,
+                opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(
+                dest => dest.TotalPrice,
+                opt => opt.MapFrom(src => (src.Quantity * src.Book.Price)));
             CreateMap<User, RegisterUserDto>()
                 .ForMember(
                 dest => dest.Name,
@@ -52,39 +76,6 @@ namespace BookShop.Api.Profiles
                 .ForMember(
                 dest => dest.UserName,
                 opt => opt.MapFrom(src => src.EmailAddress));
-            CreateMap<User, UserDto>()
-               .ForMember(
-               dest => dest.Name,
-               opt => opt.MapFrom(src => src.Name))
-               .ForMember(
-               dest => dest.Surname,
-               opt => opt.MapFrom(src => src.Surname))
-               .ForMember(
-               dest => dest.EmailAddress,
-               opt => opt.MapFrom(src => src.Email));
-            CreateMap<OrderDto, Order>()
-               .ForMember(
-                dest => dest.EmailClient,
-                opt => opt.MapFrom(src => src.EmailClient))
-               .ForMember(
-                dest => dest.NameClient,
-                opt => opt.MapFrom(src => src.NameClient))
-               .ForMember(
-                dest => dest.SurnameClient,
-                opt => opt.MapFrom(src => src.SurnameClient))
-               .ForMember(
-                dest => dest.AddressClient,
-                opt => opt.MapFrom(src => src.AddressClient))
-               .ForMember(
-                dest => dest.PhoneClient,
-                opt => opt.MapFrom(src => src.PhoneClient));
-            CreateMap<OrderDetailDto, OrderDetail>()
-               .ForMember(
-                dest => dest.BookId,
-                opt => opt.MapFrom(src => src.BookId))
-               .ForMember(
-                dest => dest.Quantity,
-                opt => opt.MapFrom(src => src.Quantity));
         }
     }
 

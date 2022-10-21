@@ -1,7 +1,6 @@
 ﻿@page "/BookCategory"
 @inherits BookCategoryBase
 
-
 <h3>BookCategories</h3>
 
 @if (BookCategories != null)
@@ -9,20 +8,13 @@
     @foreach (BookCategoryDto bookCategory in BookCategories)
     {
         <p>Name: @bookCategory.Name</p>
-        <AuthorizeView Roles="ADMIN">
-
-            <Authorized>
-                <a class="btn" href="/BookCategory/EditCategory/@bookCategory.Id">Edit @bookCategory.Id</a>
-                <button @onclick="async() => await DeleteCategory(bookCategory.Id)">Delete @bookCategory.Id</button>
-            </Authorized>
-        </AuthorizeView>
-
+        <a class="btn" href="/BookCategory/EditCategory/@bookCategory.Id">Edit @bookCategory.Id</a>
+        <button @onclick="async() => await DeleteCategory(bookCategory.Id)">Delete @bookCategory.Id</button>
         <hr />
     }
 
 }
 else
 {
-    <p><em>Loading...</em></p>
+        <p><em>Loading...</em></p>
 }
-
