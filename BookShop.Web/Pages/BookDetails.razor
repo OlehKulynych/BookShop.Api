@@ -15,29 +15,58 @@ else if (ErrorMessage != null)
 else
 {
 
-    <h3>Book: @BookDto.Name</h3>
-    <p>@BookDto.Author</p>
-    <p>@BookDto.Description</p>
-    <p>@BookDto.Price.ToString("C")</p>
-    <button class="btn-light" @onclick=" ()=> AddToCart(new CartItemAddDto{
+   
+
+    <h3 class="text-center mainHeaderText mb-1">@BookDto.Name</h3>
+
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-lg">
+                    
+                    <div class="card-body p-4">
+
+                        <div class="card-text">
+
+                            <img src="data:image/jpeg;base64, @BookDto.ImageUrl" class="border-1 rounded-2 form-control" height="500px">
+
+                        </div>
+                        <h4 class="card-text" style="font-size: 30px; font-family: 'Roboto Slab'"><strong>Title: </strong> @BookDto.Name</h4>
+
+                        <p class="card-text" style="font-size: 15px; font-family: 'Roboto Slab'"><strong>Author: </strong> @BookDto.Author</p>
+                        <p class="card-text" style="font-size: 15px; font-family: 'Roboto Slab'"><strong>Description: </strong> @BookDto.Description</p>
+                        <p class="card-text price " style="font-size: 25px;"> @BookDto.Price.ToString("C")</p>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <button @onclick=" ()=> AddToCart(new CartItemAddDto{
         BookId = BookDto.Id,
         Quantity = 1
-        })">
-        Buy
-    </button>
+        })" class="buybtn btn btn-dark buttonText">
+                                <i class="me-1 mdi mdi-cart-arrow-down"></i> Add To Cart
+                            </button>
+                            <AuthorizeView Roles="ADMIN">
 
-    <AuthorizeView Roles="ADMIN">
+                                <Authorized>
+                                    <a class="btn btnEdit buttonText" href="/Book/EditBook/@BookDto.Id"> <span class="oi oi-pencil me-1" aria-hidden="true"></span>Edit Book</a>
+                                    <a class="btn btnEdit buttonText" href="/Book/EditBookImage/@BookDto.Id"> <span class="oi oi-image me-1" aria-hidden="true"></span>Edit Book Image</a>
+                                    <button class="btn btn-secondary btnDelete buttonText" @onclick="async() => await DeleteBook(BookDto.Id)">
+                                        <span class="oi oi-trash" aria-hidden="true"></span>
+                                    </button>
+                                </Authorized>
+                            </AuthorizeView>
 
-        <Authorized>
-            <a class="btn btn-secondary" href="/Book/EditBook/@BookDto.Id"> <span class="oi oi-pencil" aria-hidden="true"></span></a>
+                        </div>
 
-            <a class="btn btn-secondary" href="/Book/EditBookImage/@BookDto.Id"> <span class="oi oi-image" aria-hidden="true"></span></a>
-            <button @onclick="async() => await DeleteBook(BookDto.Id)">
-                <span class="oi oi-trash" aria-hidden="true"></span>
-            </button>
-        </Authorized>
-    </AuthorizeView>
 
+                      
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 }

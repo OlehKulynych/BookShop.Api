@@ -2,27 +2,63 @@
 @inherits BookCategoryBase
 
 
-<h3>BookCategories</h3>
-
 @if (BookCategories != null)
 {
-    @foreach (BookCategoryDto bookCategory in BookCategories)
+    if(BookCategories.Count() > 0)
     {
-        <p>Name: @bookCategory.Name</p>
-        <AuthorizeView Roles="ADMIN">
+        <h3 class="text-center mainHeaderText mb-1">Book Categories: </h3>
 
-            <Authorized>
-                <a class="btn" href="/BookCategory/EditCategory/@bookCategory.Id">Edit @bookCategory.Id</a>
-                <button @onclick="async() => await DeleteCategory(bookCategory.Id)">Delete @bookCategory.Id</button>
-            </Authorized>
-        </AuthorizeView>
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-4">
 
-        <hr />
+                            @foreach (BookCategoryDto bookCategory in BookCategories)
+                            {
+                                <h4 style="font-size: 15px"><strong>Name: </strong> @bookCategory.Name</h4>                                
+                                <AuthorizeView Roles="ADMIN">
+
+                                    <Authorized>
+                                        <div class="d-grid gap-2 mt-3">
+                                            <button @onclick="async() => await DeleteCategory(bookCategory.Id)" class="btn btn-secondary btnDelete buttonText"><i class="mdi mdi-plus-box"></i> Delete @bookCategory.Id</button>
+                                            <a class="btn btnEdit buttonText" href="/BookCategory/EditCategory/@bookCategory.Id"><i class="mdi mdi-pencil"></i>Edit @bookCategory.Id</a>
+                                        </div>
+                                    </Authorized>
+                                </AuthorizeView>
+
+                                <hr />
+                            }
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-
+    else
+    {
+        <div class="row">
+            <div class="mt-5 col-xs-1 center-block text-center">
+                <h3 style="font-family:'Anton';" class="">Empty</h3>
+            </div>
+        </div>
+    }
+   
 }
 else
 {
-    <p><em>Loading...</em></p>
+    <div class="row">
+        <div class="mt-5 col-xs-1 center-block text-center">
+            <h3 style="font-family:'Anton';">
+                <div class="spinner-border text-secondary me-2" role="status">
+                    <span class="visually-hidden">Loading</span>
+                </div>Loading...
+            </h3>
+        </div>
+    </div>
 }
 

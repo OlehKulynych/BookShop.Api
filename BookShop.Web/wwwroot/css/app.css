@@ -83,6 +83,27 @@ a, .btn-link {
 
 }
 
+.btnAccount {
+    background-color: #955E1F;
+    color: white;
+}
+    .btnAccount:hover {
+        border-color: #955E1F;
+        color: black;
+        background-color: lightgray;
+    }
+
+.btnEdit {
+    background-color: #151515;
+    color: white;
+}
+
+    .btnEdit:hover {
+        border-color: #151515;
+        color: black;
+        background-color: lightgray;
+    }
+
 
 .btnSubmit {
     background-color: #6A3F0F;

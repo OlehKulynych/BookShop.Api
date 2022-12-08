@@ -2,18 +2,62 @@
 @inherits OrderBase
 
 
-@if(ErrorMessage != null)
-{
-    <p>@ErrorMessage</p>
-}
-<h3>Order</h3>
+<h3 class="text-center mainHeaderText mb-1">Order: </h3>
 
-<input @bind="orderDto.NameClient" placeholder="Name"/>
-<input @bind="orderDto.SurnameClient" placeholder="Surname"/>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-lg">
+                <div class="card-body p-4">
 
-<input @bind="orderDto.EmailClient" placeholder="Email"/>
-<input @bind="orderDto.AddressClient" placeholder="Address"/>
-<input @bind="orderDto.PhoneClient" placeholder="Phone Number"/>
 
-<button @onclick="CreateOrderAsync">To Order</button>
+                    <form>
+                        <div class="form-group">
+                            <label class="label-name">Name:</label>
+                            <div>
+                                <input @bind="orderDto.NameClient" class="form-control p-2 rounded-2" />
+                            </div>
 
+                        </div>
+                        <div class="form-group">
+                            <label class="label-name"> Surname:</label>
+                            <div>
+                                <input @bind ="orderDto.SurnameClient" class="form-control p-2 rounded-2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-name">Email:</label>
+                            <div>
+                                <input @bind="orderDto.EmailClient" class="form-control p-2 rounded-2" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-name">Address:</label>
+                            <div>
+                                <input @bind="orderDto.AddressClient" class="form-control p-2 rounded-2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-name">Phone Number:</label>
+                            <div>
+                                <input @bind="orderDto.PhoneClient" class="form-control p-2 rounded-2" />
+                            </div>
+                        </div>
+                                       
+                        
+
+                    </form>
+                    <div class="d-grid gap-2 mt-3">
+                        <button @onclick="CreateOrderAsync" class="btn btn-secondary btnSubmit buttonText"><i class="mdi mdi-plus-box"></i> Create Order</button>
+                        <a class="btn btn-light btnCancel buttonText" href="/"><i class="mdi mdi-close-circle"></i>Cancel</a>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

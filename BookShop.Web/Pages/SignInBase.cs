@@ -18,6 +18,8 @@ namespace BookShop.Web.Pages
         [Inject]
         AuthenticationStateProvider authenticationStateProvider { get; set; }
         [Inject]
+        public NavigationManager navigationManager { get; set; }
+        [Inject]
         public IJSRuntime JSRuntime { get; set; }
         private IJSObjectReference _jsModule;
 
