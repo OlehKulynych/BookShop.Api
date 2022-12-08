@@ -28,7 +28,14 @@ namespace BookShop.Api.Repositories.Services
                 orderDetails.Add(_mapper.Map<OrderDetail>(item));
             }
 
-            _orderRepository.CreateOrderAsync(order, orderDetails);
+            await _orderRepository.CreateOrderAsync(order, orderDetails);
+        }
+
+        public async Task<IEnumerable<OrderUserDto>> GetOrderByUser(string name)
+        {
+            var orders = await _orderRepository.GetOrderByUser(name);
+            var orderDtos = _mapper.Map<IEnumerable<OrderUserDto>>(orders);
+            return orderDtos;
         }
     }
 }

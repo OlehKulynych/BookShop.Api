@@ -21,5 +21,21 @@ namespace BookShop.Api.Controllers
         {
             await _orderService.CreateOrderAsync(orderDto);
         }
+
+        [HttpGet]
+        [Route("getUserOrder/{name}")]
+        public async Task<ActionResult<List<OrderUserDto>>> GetOrderByUser(string name)
+        {
+            var orders = await _orderService.GetOrderByUser(name);
+            if (orders == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(orders);
+            }
+
+        }
     }
 }

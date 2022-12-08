@@ -9,13 +9,13 @@
 
     <main>
         <div class="top-row px-4 shadow ps-2 pe-2 mb-2">
-           
+
             <AuthorizeView>
                 <Authorized>
                     <div class="nav-item px-3">
                         <i class="mdi mdi-account me-1"></i>@context.User.Identity.Name
                     </div>
-                    
+
                     <div class="nav-item px-3">
                         <button @onclick="SignOut" class="btn btnAccount btn-lg">
                             <span class="mdi mdi-logout"></span> Sign Out
@@ -24,16 +24,17 @@
                 </Authorized>
                 <NotAuthorized>
                     <div class="nav-item px-3">
-                        <NavLink class="nav-link btn btnAccount btn-lg" style="text-decoration:none;" href="signin">
+                        <NavLink class="nav-link btn btnAccount btn-lg" style="text-decoration:none;" href="/signin">
                             <span class="mdi mdi-login" aria-hidden="true"></span> Sign In
                         </NavLink>
                     </div>
-
                     <div class="nav-item px-3">
-                        <NavLink class="nav-link btn btnAccount btn-lg" style="text-decoration:none; href="register">
-                            <span class = "mdi mdi-account-plus" aria-hidden="true"></span> Register
+                        <NavLink class="nav-link btn btnRegister btn-lg" style="text-decoration:none;" href="/register">
+                            <span class="mdi mdi-login" aria-hidden="true"></span> Register
                         </NavLink>
                     </div>
+
+                    
 
                 </NotAuthorized>
             </AuthorizeView>
@@ -48,7 +49,7 @@
 </div>
 
 
-@code{
+@code {
     [Inject] ILocalStorageService localStorageService { get; set; }
     [Inject] AuthenticationStateProvider authenticationStateProvider { get; set; }
 

@@ -85,6 +85,25 @@ namespace BookShop.Api.Profiles
                .ForMember(
                 dest => dest.Quantity,
                 opt => opt.MapFrom(src => src.Quantity));
+
+            CreateMap<OrderDetail, OrderUserDto>()
+                .ForMember(
+                dest => dest.bookName,
+                opt => opt.MapFrom(src => src.Book.Name)
+                )
+                .ForMember(
+                dest => dest.quantity,
+                opt => opt.MapFrom(src => src.Quantity)
+                )
+                .ForMember(
+                dest => dest.price,
+                opt => opt.MapFrom(src => src.Price)
+                )
+                .ForMember(
+                dest => dest.OrderTime,
+                opt => opt.MapFrom(src => src.order.OrderTime));
+
+
         }
     }
 

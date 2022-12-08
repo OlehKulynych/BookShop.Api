@@ -2,6 +2,7 @@
 using BookShop.Api.Models;
 using BookShop.Api.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace BookShop.Api.Repositories
 {
@@ -26,10 +27,15 @@ namespace BookShop.Api.Repositories
 
         }
 
+        public async Task<IEnumerable<OrderDetail>> GetOrderByUser (string name)
+        {
+            var orders = await _dbContext.OrderDetails.Include(b => b.Book).Include(o=>o.order).Where(n=>n.order.EmailClient == name).ToListAsync();
+            return orders;
+        }
+
         public async Task CreateOrderDetailsAsync(int Id, List<OrderDetail> orderDetails)
         {
             var order = _dbContext.Orders.Where(i => i.Id == Id).FirstOrDefault();
-
 
             List<OrderDetail> orderDetailList = new List<OrderDetail>();
             foreach (var item in orderDetails)

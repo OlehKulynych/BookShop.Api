@@ -93,6 +93,19 @@ a, .btn-link {
         background-color: lightgray;
     }
 
+
+.btnRegister {
+    background-color: #3E2416;
+    color: white;
+}
+
+    .btnRegister:hover {
+        border-color: #955E1F;
+        color: black;
+        background-color: lightgray;
+    }
+
+
 .btnEdit {
     background-color: #151515;
     color: white;
