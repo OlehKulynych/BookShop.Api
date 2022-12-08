@@ -2,22 +2,61 @@
 
 @inherits CartBase
 
-<h3>Shopping Cart</h3>
+<h3 class="text-center mainHeaderText mb-5">Shopping Cart</h3>
 
 <h1>@ErrorMessage</h1>
 @if (cartItems != null)
-{
-    @foreach (var item in cartItems)
+{  
+    if(cartItems.Count() > 0)
     {
-        <h4>@item.BookName</h4>
-        <p>@item.Description</p>
-        <p>@item.Price.ToString("C")</p>
+        <div class="d-flex flex-row flex-wrap mt-2">
+            @foreach (var item in cartItems)
+            {
+                <div class="card card-book m-sm-3 mt-3 border rounded-3">
+                    <div class="card-body">
+                        <h4 class="card-text" style="font-size: 25px"><strong>Title: </strong> @item.BookName</h4>
+                        <p class="card-text price" style="font-size: 20px;"><strong>Price: </strong> @item.TotalPrice.ToString("C")</p>
+                        @{
+                            totalPrice += item.TotalPrice;
+                        }
+                    </div>
+                    <div class="card-footer d-grid gap-2">
+                        <button @onclick="async () => {await DeleteFromCart(item.BookId);}" class="btn btn-secondary buttonText btnDelete p-2 pe-3 ps-3 align-items-center justify-content-center">
+                            <span class="oi oi-trash me-1" aria-hidden="true"></span> Delete
+                        </button>
+                    </div>
+                </div>
 
-        <p>Total: @item.TotalPrice.ToString("C")</p>
 
-        <button @onclick="async () => {await DeleteFromCart(item.BookId);}" class="btn btn-secondary">
-            <span class="oi oi-trash" aria-hidden="true"></span>
-        </button>
+            }
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
+            <p class="price m-2 me-md-2" style="font-size: 35px;">Total Price: @totalPrice.ToString("C")</p>
+            <a class=" btn btn-success p-2 ps-5 pe-5 me-md-2 ms-3 me-3 m-2 buttonText" style="font-size: 22px" href="/Order"> <i class="mdi mdi-account-cash me-2"></i>Order</a>
+        </div>
     }
-    <button class="btn btn-dark"><a href="/Order" style="text-decoration:none">Buy</a></button>
+    else
+    {
+        <div class="row">
+            <div class="mt-5 col-xs-1 center-block text-center">
+                <h3 style="font-family:'Anton';" class="">Cart is Empty...</h3>
+            </div>
+        </div>
+    }
+   
 }
+else
+{
+    <div class="row">
+        <div class="mt-5 col-xs-1 center-block text-center">
+            <h3 style="font-family:'Anton';">
+                <div class="spinner-border text-secondary me-2" role="status">
+                    <span class="visually-hidden">Loading</span>
+                </div>Loading...
+            </h3>
+        </div>
+    </div>
+
+}
+

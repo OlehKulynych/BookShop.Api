@@ -2,34 +2,88 @@
 
 @inherits AddBookBase
 
-        @if (ErrorMessage != null)
-        {
-            <p>@ErrorMessage</p>
-        }
-        <h3>Add Book</h3>
-        <EditForm Model="book">
-            <input @bind="book.Name" placeholder="Name" />
-            <input @bind="book.Author" placeholder="Author" />
-            <input @bind="book.Description" placeholder="Description" />
-            <input @bind="book.Price" type="number" placeholder="Price" />
-            <input @bind="book.Quantity" type="number" placeholder="Quantity" />
+@if (ErrorMessage != null)
+{
+    <p>@ErrorMessage</p>
+}
 
+<h3 class="text-center mainHeaderText mb-1">Add Book: </h3>
 
-            <InputFile OnChange="@OnInputFileChanged" />
-            <img src="@contentString">
-            <InputSelect @bind-Value="book.BookCategoryId" class="form-control">
-                <option>Select Category</option>
-                @foreach (var category in bookCategoryDtos)
-                {
-                    <option value="@category.Id">@category.Name</option>
-                }
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-lg">
+                <div class="card-body p-4">
+                    
+                    
+                        <EditForm Model="book">
+                            <div class="form-group">
+                                <label class="label-name">Name:</label>
+                                <div>
+                                    <input @bind="book.Name" class="form-control p-2 rounded-2" />
+                                </div>
 
-            </InputSelect>
+                            </div>
+                            <div class="form-group">
+                                <label class="label-name"> Author:</label>
+                                <div>
+                                    <input @bind="book.Author" class="form-control p-2 rounded-2" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="label-name">Description:</label>
+                                <div>
+                                    <input @bind="book.Description" class="form-control p-2 rounded-2" />
+                                </div>
+                            </div>
 
-        </EditForm>
+                            <div class="form-group">
+                                <label class="label-name">Price:</label>
+                                <div>
+                                    <input @bind="book.Price" type="number" class="form-control p-2 rounded-2" />
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                <label class="label-name">Quantity:</label>
+                                <div>
+                                    <input @bind="book.Quantity" type="number" class="form-control p-2 rounded-2" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="label-name">Image:</label>
+                                <div>
+                                    <InputFile OnChange="@OnInputFileChanged" class="form-control" />
+                                    
+                                   
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="label-name">Category:</label>
+                                <div>
+                                    <InputSelect @bind-Value="book.BookCategoryId" class="form-control p-2 rounded-2">
+                                        <option>Select Category</option>
+                                        @foreach (var category in bookCategoryDtos)
+                                        {
+                                            <option value="@category.Id">@category.Name</option>
+                                        }
 
-        <button @onclick="AddBook"> Add Book</button>
+                                    </InputSelect>
+                                </div>
+                            </div>
+                           
+                        </EditForm>
+                         <div class="d-grid gap-2 mt-3">
+                        <button @onclick="AddBook" class="btn btn-secondary btnSubmit buttonText"><i class="mdi mdi-plus-box"></i> Add</button>
+                            <a class="btn btn-light btnCancel buttonText" href="/"><i class="mdi mdi-close-circle"></i>Cancel</a>
+                        </div>
+                   
+                    
 
-
-
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

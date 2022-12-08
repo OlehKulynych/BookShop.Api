@@ -74,6 +74,39 @@ a, .btn-link {
     color: red;
 }
 
+.label-name {
+    font-family: 'Roboto Slab';
+    font-size: 15px;
+    color: dimgrey;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+}
+
+
+.btnSubmit {
+    background-color: #6A3F0F;
+    color: white;
+}
+
+    .btnSubmit:hover {
+        border-color: #6A3F0F;
+        color: #6A3F0F;
+        background-color: lightgray;
+    }
+
+.btnCancel {
+    background-color: #717171;
+    color: #1A1A1A;
+}
+
+    .btnCancel:hover {
+        border-color: #717171;
+        color: white;
+        background-color: #1A1A1A;
+    }
+
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

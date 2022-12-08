@@ -1,26 +1,44 @@
 ﻿@page "/BookCategory/EditCategory/{Id:int}"
 @inherits EditBookCategoryBase
 
+@if (ErrorMessage != null)
+{
+    <p>@ErrorMessage</p>
+}
 
+<h3 class="text-center mainHeaderText mb-1">Edit Book Category:</h3>
 
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-lg">
+                <div class="card-body p-4">
+                    <form>
+                        <div class="form-group">
+                            <label class="label-name">Name:</label>
+                            <div>
+                                <input @bind="BookCategory.Name" class="form-control p-2 rounded-2" />
+                            </div>
 
-        @if (ErrorMessage != null)
-        {
-            <p>@ErrorMessage</p>
-        }
-        <h3>Edit Book Category</h3>
+                        </div>
+                    </form>
 
-        <input @bind="BookCategory.Name" placeholder="Name" />
-
-
-        <button @onclick="@(async()=> {
+                    <div class="d-grid gap-2 mt-3">
+                        <button @onclick="@(async()=> {
         if(BookCategory.Name != null)
         {
             await UpdateCategory();
         }
-        })">
-            Edit Category
-        </button>
+        })" class="btn btn-secondary btnSubmit buttonText">
+                            <i class="mdi mdi-pencil"></i> Edit Category
+                        </button>
+                        <a class="btn btn-light btnCancel buttonText" href="/"><i class="mdi mdi-close-circle"></i>Cancel</a>
+                    </div>
 
 
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
