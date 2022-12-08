@@ -1,4 +1,6 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.LocalStorage
+@using BookShop.Web.Providers
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
@@ -6,15 +8,37 @@
     </div>
 
     <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank" class="me-2">About</a>
+        <div class="top-row px-4 shadow p-3 mb-2">
+           
             <AuthorizeView>
                 <Authorized>
                     @context.User.Identity.Name
+                    <div class="nav-item px-3">
+
+                        <button @onclick="SignOut" class="btn btn-primary btn-lg">
+                            <span class="mdi mdi-logout"></span> Sign Out
+                        </button>
+                    </div>
                 </Authorized>
+                <NotAuthorized>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="signin">
+                            <span class="mdi mdi-login" aria-hidden="true"></span> Sign In
+                        </NavLink>
+                    </div>
+
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="register">
+                            <span class = "mdi mdi-account-plus" aria-hidden="true"></span> Register
+                        </NavLink>
+                    </div>
+
+                </NotAuthorized>
             </AuthorizeView>
+
+
         </div>
-     
+
         <article class="content px-4">
             @Body
         </article>
@@ -22,3 +46,20 @@
 </div>
 
 
+@code{
+    [Inject] ILocalStorageService localStorageService { get; set; }
+    [Inject] AuthenticationStateProvider authenticationStateProvider { get; set; }
+
+    [Inject] NavigationManager navigationManager { get; set; }
+
+    private async Task SignOut()
+    {
+        if (await localStorageService.ContainKeyAsync("bearerToken"))
+        {
+            await localStorageService.RemoveItemAsync("bearerToken");
+            ((ClientAuthenticationStateProvider)authenticationStateProvider).SignOut();
+        }
+        StateHasChanged();
+        navigationManager.NavigateTo("/");
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using BookShop.Shared.DTO;
 using BookShop.Web.Services.Intefraces;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace BookShop.Web.Services
@@ -69,6 +70,7 @@ namespace BookShop.Web.Services
 
         public async Task AddBookCategoryAsync(BookAddDto bookAddDto)
         {
+            
             await _httpClient.PostAsJsonAsync("api/book/addbook", bookAddDto);
 
         }

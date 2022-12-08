@@ -1,10 +1,8 @@
 ﻿@page "/BookCategory/AddNewCategory"
 @inherits AddBookCategoryBase
 
-@attribute [Authorize(Roles = "ADMIN")]
 
-
-        @if (ErrorMessage != null)
+@if (ErrorMessage != null)
 {
     <p>@ErrorMessage</p>
 }

@@ -15,6 +15,7 @@ namespace BookShop.Web.Pages
 
         public IEnumerable<CartItemDto> cartItems { get; set; }
 
+        public decimal totalPrice = 0;
         public string ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()

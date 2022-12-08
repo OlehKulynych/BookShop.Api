@@ -2,27 +2,32 @@
 using Blazored.LocalStorage;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Net.Http.Headers;
+using System.Net.Http;
 
 namespace BookShop.Web.Providers
 {
     public class ClientAuthenticationStateProvider : AuthenticationStateProvider
     {
+        private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _localStorageService;
         private readonly JwtSecurityTokenHandler _jwtSecurityTokenHandler = new();
-        public ClientAuthenticationStateProvider(ILocalStorageService localStorageService)
+        public ClientAuthenticationStateProvider(ILocalStorageService localStorageService, HttpClient httpClient)
         {
             _localStorageService = localStorageService;
+            _httpClient = httpClient;
         }
         public async override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             try
             {
                 string savedToken = await _localStorageService.GetItemAsync<string>("bearerToken");
+                             
                 if (string.IsNullOrWhiteSpace(savedToken))
                 {
                     return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
                 }
-
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", savedToken);
                 JwtSecurityToken jwtSecurityToken = _jwtSecurityTokenHandler.ReadJwtToken(savedToken);
                 DateTime expiry = jwtSecurityToken.ValidTo;
 
@@ -67,7 +72,7 @@ namespace BookShop.Web.Providers
         internal void SignOut()
         {
             ClaimsPrincipal nobody = new ClaimsPrincipal(new ClaimsIdentity());
-            
+
             Task<AuthenticationState> authenticationState = Task.FromResult(new AuthenticationState(nobody));
             NotifyAuthenticationStateChanged(authenticationState);
 
@@ -75,3 +80,4 @@ namespace BookShop.Web.Providers
         }
     }
 }
+

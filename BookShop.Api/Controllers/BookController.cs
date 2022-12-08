@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace BookShop.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class BookController : Controller
     {

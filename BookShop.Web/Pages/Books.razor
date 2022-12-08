@@ -1,22 +1,49 @@
 ﻿@page "/"
 @inherits BooksBase
-<h3>Books</h3>
+
+<h3 class="text-center mainHeaderText">Catalog</h3>
 
 <h1>@ErrorMessage</h1>
 
-@if(Books == null)
+@if (Books == null)
 {
-    <h3>Empty...</h3>
+    <div class="row">
+        <div class="mt-5 col-xs-1 center-block text-center">
+            <h3 style="font-family:'Anton';">
+                <div class="spinner-border text-secondary me-2" role="status">
+                    <span class="visually-hidden">Loading</span>
+                </div>Loading...
+            </h3>
+        </div>
+    </div>
+
 }
 else
 {
-    <h3>Books</h3>
     var count = Books.Count();
-    if(count > 0)
+    if (count > 0)
     {
-        var books = new List<BookDto>();
-        books = Books.ToList();
-        <DisplayBook Books="@books"></DisplayBook>
-       
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+
+                @{
+                    var books = new List<BookDto>();
+                    books = Books.ToList();
+                    <DisplayBook Books="@books">
+                    </DisplayBook>
+                }
+            </div>
+
+        </div>
+
+
+    }
+    else
+    {
+        <div class="row">
+            <div class="mt-5 col-xs-1 center-block text-center">
+                <h3 style="font-family:'Anton';" class="">Empty</h3>
+            </div>
+        </div>
     }
 }

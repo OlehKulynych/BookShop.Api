@@ -56,20 +56,21 @@ namespace BookShop.Api.Repositories.Services
 
         private async Task<string> GenerateJsonWebToken(User identityUser)
         {
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
-           var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+            SigningCredentials credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             List<Claim> claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, identityUser.Email),
-                
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, identityUser.Id)
             };
 
             IList<string> roleNames = await _userManager.GetRolesAsync(identityUser);
             claims.AddRange(roleNames.Select(roleName => new Claim(ClaimsIdentity.DefaultRoleClaimType, roleName)));
 
-            var jwtSecurityToken = new JwtSecurityToken
+            JwtSecurityToken jwtSecurityToken = new JwtSecurityToken
             (
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Issuer"],

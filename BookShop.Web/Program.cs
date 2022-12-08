@@ -7,18 +7,24 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddAuthorizationCore();
+
 builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7236/") });
 
-builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddAuthorizationCore();
-builder.Services.AddScoped<ClientAuthenticationStateProvider>();
 
-builder.Services.AddScoped<AuthenticationStateProvider>(provider 
-    => provider.GetRequiredService<ClientAuthenticationStateProvider>());
+builder.Services.AddScoped<AuthenticationStateProvider, ClientAuthenticationStateProvider>();
+builder.Services.AddBlazoredLocalStorage();
+
+
+
+//builder.Services.AddScoped<ClientAuthenticationStateProvider>();
+
 
 builder.Services.AddScoped<IBookService, BookService>();
 
@@ -30,3 +36,4 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 await builder.Build().RunAsync();
+
